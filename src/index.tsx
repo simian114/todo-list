@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { store } from './app/store';
+import { store } from 'service/redux/store';
 import 'antd/dist/antd.css';
 import { Provider } from 'react-redux';
 import GlobalStyles from './assets/styles/GlobalStyles';
