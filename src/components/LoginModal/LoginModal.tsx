@@ -1,18 +1,48 @@
-import React from 'react';
-import { Modal } from 'antd';
+import React, { useEffect } from 'react';
+import { Modal, Spin } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { clear, loginRequest, userSelector } from 'service/redux/userSlice';
 import {
   GithubLoginButton,
   GoogleLoginButton,
 } from 'react-social-login-buttons';
+import { LOGIN_STATUS, PROVIDERS } from 'utils/constants';
 
 interface LoginModalProps {
   visible: boolean;
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ visible }) => {
-  const handleLogin = () => {
-    console.log('login!');
+  const dispatch = useDispatch();
+  const loadingStatus = useSelector(userSelector).status;
+
+  const handleLogin = (provider: string) => {
+    if (loadingStatus === LOGIN_STATUS.LOADING) {
+      console.log('이미 진행중...');
+      return;
+    }
+    dispatch(loginRequest({ provider }));
   };
+
+  useEffect(() => {
+    if (loadingStatus === LOGIN_STATUS.FAILED) {
+      dispatch(clear());
+    }
+  }, [dispatch, loadingStatus]);
+
+  const renderIf =
+    loadingStatus === LOGIN_STATUS.LOADING ? (
+      <Spin />
+    ) : (
+      <>
+        <GithubLoginButton onClick={() => handleLogin(PROVIDERS.GITHUB)}>
+          {PROVIDERS.GITHUB}
+        </GithubLoginButton>
+        <GoogleLoginButton onClick={() => handleLogin(PROVIDERS.GOOGLE)}>
+          {PROVIDERS.GOOGLE}
+        </GoogleLoginButton>
+      </>
+    );
   return (
     <Modal
       visible={visible}
@@ -22,8 +52,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ visible }) => {
       okButtonProps={{ style: { display: 'none' } }}
       cancelButtonProps={{ style: { display: 'none' } }}
     >
-      <GithubLoginButton onClick={handleLogin}>Github</GithubLoginButton>
-      <GoogleLoginButton onClick={handleLogin}>Google</GoogleLoginButton>
+      {renderIf}
     </Modal>
   );
 };
