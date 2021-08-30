@@ -7,12 +7,10 @@ class Repository {
   async addTodo(userId: string) {
     // NOTE: 아래의 두 방법 모두 가능함. 어떤게 더 좋은걸까?
     // NOTE: success 를 사용할 수 있는 rest api 방법을 사용하도록하자.
-    // const dbRef = firebaseDB.ref(`${userId}/todos`);
     const newTodo = {
       name: 'test',
       age: 20,
     };
-    // dbRef.push(newTodo, () => console.log('success'));
     const res = await axios.post(`${baseurl}/${userId}/todos.json`, newTodo);
     console.log(res);
   }

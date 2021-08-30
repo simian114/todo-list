@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import LoginModal from './components/LoginModal/LoginModal';
+
 // import { Counter } from './features/counter/Counter';
 interface Props {
   auth: any;
@@ -8,48 +11,40 @@ interface Props {
 const App: React.FC<Props> = ({ auth, repository }) => {
   const [user, setUser] = useState(null);
 
-  const handleLogin = (e: any) => {
-    // NOTE: 전달되는 data 의 user.uid 를 이용하면 된다.
-    auth
-      .login(e.target.textContent)
-      .then((data: any) => {
-        const uid = data.user.uid;
-        console.log(uid);
-        setUser(uid);
-      })
-      .catch((error: any) => console.log(error));
-  };
-  const handleLogout = (e: any) => {
-    auth.logout();
-  };
+  // const handleLogin = async (e: any) => {
+  //   // NOTE: 전달되는 data 의 user.uid 를 이용하면 된다.
+  //   const response = await auth.login(e.target.textContent);
+  //   const { user } = response;
+  //   setUser(user.uid);
+  // };
+  // if (!user) {
+  //   console.log('zzasdfasdfasdf');
+  //   modal.info({ title: 'aa', content: <div>abcd</div> });
+  // }
 
-  const handleAddTodo = () => {
-    repository.addTodo(user);
-  };
+  // const handleLogout = (e: any) => {
+  //   auth.logout();
+  // };
 
-  const handleGetTodos = () => {
-    repository.getTodos(user);
-  };
+  // const handleAddTodo = () => {
+  //   repository.addTodo(user);
+  // };
 
-  useEffect(() => {
-    auth.onAuthChange();
-  }, [auth]);
-  return (
-    <div>
-      {user ? (
-        <>
-          <button onClick={handleLogout}>logout</button>
-          <button onClick={handleAddTodo}>todo추가</button>
-          <button onClick={handleGetTodos}>todo 가져오기</button>
-        </>
-      ) : (
-        <>
-          <button onClick={handleLogin}>Google</button>
-          <button onClick={handleLogin}>Github</button>
-        </>
-      )}
-    </div>
-  );
+  // const handleGetTodos = () => {
+  //   repository.getTodos(user);
+  // };
+
+  // useEffect(() => {
+  //   auth.onAuthChange();
+  // }, [auth]);
+
+  return <StyledApp>{<LoginModal visible={!!!user} />}</StyledApp>;
 };
+
+const StyledApp = styled.div`
+  width: 100%;
+  height: 100%;
+  // background-color: black;
+`;
 
 export default App;
