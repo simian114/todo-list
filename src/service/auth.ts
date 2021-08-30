@@ -1,13 +1,25 @@
-import { firebaseAuth, githubProvider, googleProvider, firebaseApp } from '../firebase';
+import { ERROR_MESSAGE } from 'utils/constants';
+import {
+  firebaseAuth,
+  githubProvider,
+  googleProvider,
+  firebaseApp,
+} from '../firebase';
 
 interface IAuth {
   login: (name: string) => void;
-  getProvider: (name: string) => any;
 }
+
+// TODO: AuthProvider 의 타입 알아내기
+const providerOptions: { [key: string]: any } = {
+  Google: googleProvider,
+  Github: githubProvider,
+};
 
 class Auth implements IAuth {
   login(name: string) {
-    const provider = this.getProvider(name);
+    const provider = providerOptions[name];
+    if (!!!provider) throw new Error(ERROR_MESSAGE.NO_EXIEST_PROVIDER);
     return firebaseAuth.signInWithPopup(provider);
   }
   logout() {
@@ -15,19 +27,9 @@ class Auth implements IAuth {
   }
   onAuthChange = () => {
     firebaseApp.auth().onAuthStateChanged((user) => {
-      console.log('here!!!', user);
+      console.log('user login or logout', user);
     });
   };
-  getProvider(name: any) {
-    switch (name) {
-      case 'Google':
-        return googleProvider;
-      case 'Github':
-        return githubProvider;
-      default:
-        throw new Error('zz');
-    }
-  }
 }
 
 export default Auth;
