@@ -10,6 +10,7 @@ import {
   todosSelector,
   updateTodoRequest,
 } from './service/redux/slices/todosSlice';
+import TodoForm from 'components/TodoForm/TodoForm';
 
 const App: React.FC = () => {
   const user = useSelector(userSelector).uid;
@@ -30,6 +31,7 @@ const App: React.FC = () => {
   return (
     <Layout>
       <>
+        <TodoForm />
         {todos.map((todo: Todo) => {
           return (
             <TodoItem key={todo.id}>
