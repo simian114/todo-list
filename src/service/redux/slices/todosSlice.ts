@@ -74,6 +74,21 @@ export const todosSlice = createSlice({
       state.todos.splice(todoIdx, 1);
       state.status = 'loading';
     },
+    updateTodoRequest: (
+      state: TodosState,
+      action: PayloadAction<{ updateTodo: UpdateTodo }>,
+    ) => {
+      const { id, ...rest } = action.payload.updateTodo;
+      const todoIdx = state.todos.findIndex((todo) => todo.id === id);
+      if (todoIdx !== -1) {
+        const newTodo = {
+          ...state.todos[todoIdx],
+          ...rest,
+          updatedAt: new Date(),
+        };
+        state.todos[todoIdx] = newTodo;
+      }
+    },
   },
 });
 
@@ -85,6 +100,7 @@ export const {
   addTodoSuccess,
   addTodoFailed,
   removeTodoRequest,
+  updateTodoRequest,
 } = todosSlice.actions;
 
 export const todosSelector = (state: RootState) => state.todos;

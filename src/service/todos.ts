@@ -84,6 +84,8 @@ const updateTodo = async (todo: UpdateTodo) => {
     ...todo,
     updatedAt: serverTimestamp(),
   });
+  const updatedTodo = await getDoc(targetRef);
+  return new Todo(updatedTodo.data());
 };
 
 export { getAll, addTodo, removeTodo, updateTodo };

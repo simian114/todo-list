@@ -8,6 +8,7 @@ import {
   removeTodoRequest,
   Todo,
   todosSelector,
+  updateTodoRequest,
 } from './service/redux/slices/todosSlice';
 
 const App: React.FC = () => {
@@ -18,6 +19,13 @@ const App: React.FC = () => {
   const handleRemove = (id: string) => {
     dispatch(removeTodoRequest({ id }));
   };
+  const handleUpdate = (id: string) => {
+    const temp = {
+      id,
+      text: '12341234',
+    };
+    dispatch(updateTodoRequest({ updateTodo: temp }));
+  };
 
   return (
     <StyledApp>
@@ -25,8 +33,13 @@ const App: React.FC = () => {
       {todos.map((todo: Todo) => {
         return (
           <TodoItem key={todo.id}>
+            {todo.id}
+            <br />
             {todo.due.toDateString()}
+            <br />
+            {todo.text}
             <button onClick={() => handleRemove(todo.id)}>삭제</button>
+            <button onClick={() => handleUpdate(todo.id)}>업데이트</button>
           </TodoItem>
         );
       })}

@@ -10,6 +10,8 @@ import {
   getTodosSuccess,
   removeTodoRequest,
   Todo,
+  UpdateTodo,
+  updateTodoRequest,
 } from '../slices/todosSlice';
 
 function* getTodos(
@@ -46,6 +48,12 @@ function* removeTodo(
   }
 }
 
+function* updateTodo(
+  action: PayloadAction<{ updateTodo: UpdateTodo }>,
+): Generator<any, any, any> {
+  yield call(TodoService.updateTodo, action.payload.updateTodo);
+}
+
 function* watchGetTodos() {
   yield takeEvery(getTodosRequest.type, getTodos);
 }
@@ -58,6 +66,15 @@ function* watchRemoveTodo() {
   yield takeEvery(removeTodoRequest.type, removeTodo);
 }
 
+function* watchUpdateTodo() {
+  yield takeEvery(updateTodoRequest.type, updateTodo);
+}
+
 export default function* watchTodo() {
-  yield all([watchGetTodos(), watchAddTodo(), watchRemoveTodo()]);
+  yield all([
+    watchGetTodos(),
+    watchAddTodo(),
+    watchRemoveTodo(),
+    watchUpdateTodo(),
+  ]);
 }
