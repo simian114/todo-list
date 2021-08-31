@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { userSelector } from 'service/redux/slices/userSlice';
 import styled from 'styled-components';
 import LoginModal from './components/LoginModal/LoginModal';
-import Temp from './components/Temp/Temp';
+import Layout from './components/Layout';
 import {
   removeTodoRequest,
   Todo,
@@ -28,30 +28,26 @@ const App: React.FC = () => {
   };
 
   return (
-    <StyledApp>
-      <Temp />
-      {todos.map((todo: Todo) => {
-        return (
-          <TodoItem key={todo.id}>
-            {todo.id}
-            <br />
-            {todo.due.toDateString()}
-            <br />
-            {todo.text}
-            <button onClick={() => handleRemove(todo.id)}>삭제</button>
-            <button onClick={() => handleUpdate(todo.id)}>업데이트</button>
-          </TodoItem>
-        );
-      })}
-      {<LoginModal visible={!!!user} />}
-    </StyledApp>
+    <Layout>
+      <>
+        {todos.map((todo: Todo) => {
+          return (
+            <TodoItem key={todo.id}>
+              {todo.id}
+              <br />
+              {todo.due.toDateString()}
+              <br />
+              {todo.text}
+              <button onClick={() => handleRemove(todo.id)}>삭제</button>
+              <button onClick={() => handleUpdate(todo.id)}>업데이트</button>
+            </TodoItem>
+          );
+        })}
+        {<LoginModal visible={!!!user} />}
+      </>
+    </Layout>
   );
 };
-
-const StyledApp = styled.div`
-  width: 100%;
-  height: 100%;
-`;
 
 const TodoItem = styled.div`
   widht: 300px;
