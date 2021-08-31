@@ -72,22 +72,24 @@ const TodoForm: React.FC = () => {
         onChange={handleInputChange}
         placeholder="todo 입력하세요"
       />
-      <StyledDatePicker
-        onChange={handleDateChange}
-        value={values.due}
-        disabledDate={disabledDate}
-      />
-      <StyledDropdown overlay={menu} placement="bottomLeft" arrow>
-        <Button>{values.category}</Button>
-      </StyledDropdown>
+      <Temp>
+        <StyledDatePicker
+          onChange={handleDateChange}
+          value={values.due}
+          disabledDate={disabledDate}
+        />
+        <StyledDropdown overlay={menu} placement="bottomLeft" arrow>
+          <Button>{values.category}</Button>
+        </StyledDropdown>
 
-      <StyledDropdown overlay={PriorityMenu} placement="bottomLeft" arrow>
-        <Button>{values.priority}</Button>
-      </StyledDropdown>
-      {/* TODO: loading 넣기 */}
-      <StyledButton htmlType="submit" size="large" loading={false}>
-        <StyledIcon />
-      </StyledButton>
+        <StyledDropdown overlay={PriorityMenu} placement="bottomLeft" arrow>
+          <Button>{values.priority}</Button>
+        </StyledDropdown>
+        {/* TODO: loading 넣기 */}
+        <StyledButton htmlType="submit" size="large" loading={false}>
+          <StyledIcon />
+        </StyledButton>
+      </Temp>
     </StyledForm>
   );
 };
@@ -107,8 +109,15 @@ function disabledDate(current: Moment) {
   return current < moment().startOf('day');
 }
 
+const Temp = styled.div`
+  display: flex;
+`;
+
 const StyledDropdown = styled(Dropdown)`
   height: 50px;
+  ${({ theme }) => theme.tablet` 
+    flex: 1;
+  `};
 `;
 
 const StyledIcon = styled(PlusOutlined)`
@@ -117,11 +126,17 @@ const StyledIcon = styled(PlusOutlined)`
 
 const StyledDatePicker = styled(DatePicker)`
   width: 180px;
+  ${({ theme }) => theme.tablet` 
+    flex: 1;
+  `};
 `;
-
 const StyledForm = styled.form`
   display: flex;
-  width: 100%:
+  width: 100%;
+
+  ${({ theme }) => theme.tablet` 
+    flex-direction: column;
+  `};
 `;
 
 const StyledInput = styled(Input)`
