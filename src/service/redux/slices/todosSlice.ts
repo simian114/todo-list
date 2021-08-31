@@ -64,6 +64,16 @@ export const todosSlice = createSlice({
     addTodoFailed: (state: TodosState) => {
       state.status = 'failed';
     },
+    removeTodoRequest: (
+      state: TodosState,
+      action: PayloadAction<{ id: string }>,
+    ) => {
+      const todoIdx = state.todos.findIndex(
+        (todo) => todo.id === action.payload.id,
+      );
+      state.todos.splice(todoIdx, 1);
+      state.status = 'loading';
+    },
   },
 });
 
@@ -74,6 +84,7 @@ export const {
   addTodoRequest,
   addTodoSuccess,
   addTodoFailed,
+  removeTodoRequest,
 } = todosSlice.actions;
 
 export const todosSelector = (state: RootState) => state.todos;

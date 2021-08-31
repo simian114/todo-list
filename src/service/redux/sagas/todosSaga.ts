@@ -1,6 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { takeEvery, put, call, all } from 'redux-saga/effects';
-// import { getAll, addTodo } from 'service/todos';
 import * as TodoService from 'service/todos';
 import {
   addTodoFailed,
@@ -9,6 +8,7 @@ import {
   getTodosFailed,
   getTodosRequest,
   getTodosSuccess,
+  removeTodoRequest,
   Todo,
 } from '../slices/todosSlice';
 
@@ -34,6 +34,18 @@ function* addTodo(
   }
 }
 
+function* removeTodo(
+  action: PayloadAction<{ id: string }>,
+): Generator<any, any, any> {
+  try {
+    //
+    yield call(TodoService.removeTodo, action.payload.id);
+  } catch (error) {
+    //
+    console.log(error);
+  }
+}
+
 function* watchGetTodos() {
   yield takeEvery(getTodosRequest.type, getTodos);
 }
@@ -42,6 +54,10 @@ function* watchAddTodo() {
   yield takeEvery(addTodoRequest.type, addTodo);
 }
 
+function* watchRemoveTodo() {
+  yield takeEvery(removeTodoRequest.type, removeTodo);
+}
+
 export default function* watchTodo() {
-  yield all([watchGetTodos(), watchAddTodo()]);
+  yield all([watchGetTodos(), watchAddTodo(), watchRemoveTodo()]);
 }
