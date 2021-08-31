@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { Modal, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { clear, loginRequest, userSelector } from 'service/redux/userSlice';
+import {
+  clear,
+  loginRequest,
+  userSelector,
+} from 'service/redux/slices/userSlice';
 import {
   GithubLoginButton,
   GoogleLoginButton,
