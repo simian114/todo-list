@@ -10,15 +10,18 @@ const Layout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <Header />
-      <Main>{children}</Main>
+      <Main className="main">{children}</Main>
       {/* TODO: Footer 가장 마지막에 할것 */}
     </>
   );
 };
 
 const Main = styled.main`
-  height: calc(100vh-70px);
-  padding-top: 70px;
+  padding-top: 75px;
+  max-width: 1024px;
+  margin: auto;
+  background-color: yellow;
+  height: calc(100vh);
 `;
 
 export default Layout;
