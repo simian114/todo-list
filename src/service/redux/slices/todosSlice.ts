@@ -36,27 +36,45 @@ export const todosSlice = createSlice({
       state: TodosState,
       action: PayloadAction<{ userId: string }>,
     ) => {
-      console.log('******** get all todo request *********');
       state.status = 'loading';
     },
     getTodosSuccess: (
       state: TodosState,
       action: PayloadAction<{ todos: Todo[] }>,
     ) => {
-      console.log('@@@@@@ success @@@@@@@@');
-      console.log(action.payload.todos);
-      console.log('@@@@@@@@@@@@@@@@@@@@@@@');
       state.todos = action.payload.todos;
       state.status = 'idle';
     },
     getTodosFailed: (state: TodosState) => {
       state.status = 'failed';
     },
+    addTodoRequest: (
+      state: TodosState,
+      action: PayloadAction<{ todo: CreateTodo }>,
+    ) => {
+      state.status = 'loading';
+    },
+    addTodoSuccess: (
+      state: TodosState,
+      action: PayloadAction<{ todo: Todo }>,
+    ) => {
+      state.todos.push(action.payload.todo);
+      state.status = 'idle';
+    },
+    addTodoFailed: (state: TodosState) => {
+      state.status = 'failed';
+    },
   },
 });
 
-export const { getTodosRequest, getTodosSuccess, getTodosFailed } =
-  todosSlice.actions;
+export const {
+  getTodosRequest,
+  getTodosSuccess,
+  getTodosFailed,
+  addTodoRequest,
+  addTodoSuccess,
+  addTodoFailed,
+} = todosSlice.actions;
 
 export const todosSelector = (state: RootState) => state.todos;
 export default todosSlice.reducer;

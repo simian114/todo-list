@@ -8,6 +8,8 @@ import {
   query,
   where,
   updateDoc,
+  serverTimestamp,
+  getDoc,
 } from 'firebase/firestore';
 
 import {
@@ -27,8 +29,6 @@ class Todo {
   updatedAt: Date;
   createdAt: Date;
   constructor(todo: any) {
-    console.log(todo.due);
-    console.log(todo.due.toDate());
     this.id = todo.id;
     this.user = todo.user;
     this.text = todo.text;
@@ -63,9 +63,15 @@ const getAll = async (userId: string) => {
 };
 
 const addTodo = async (todo: CreateTodo) => {
-  const temp = await addDoc(todosRef, todo);
+  const temp = await addDoc(todosRef, {
+    ...todo,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
   await updateDoc(temp, { id: temp.id });
-  console.log(temp.id);
+  const newTodoRef = doc(todosRef, temp.id);
+  const newTodo = await getDoc(newTodoRef);
+  return new Todo(newTodo.data());
 };
 
 const removeTodo = async (todoId: string) => {
@@ -76,7 +82,7 @@ const updateTodo = async (todo: UpdateTodo) => {
   const targetRef = doc(todosRef, todo.id);
   await updateDoc(targetRef, {
     ...todo,
-    updatedAt: new Date(),
+    updatedAt: serverTimestamp(),
   });
 };
 

@@ -1,18 +1,19 @@
 import React from 'react';
 import {
+  addTodoRequest,
   CreateTodo,
   getTodosRequest,
   UpdateTodo,
 } from 'service/redux/slices/todosSlice';
 import { logoutRequest, userSelector } from 'service/redux/slices/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTodo, removeTodo, updateTodo } from 'service/todos';
+import { removeTodo, updateTodo } from 'service/todos';
 
 const Temp = () => {
   const user = useSelector(userSelector).uid;
   const dispatch = useDispatch();
 
-  const handleClick = async () => {
+  const handleClick = () => {
     const temp: CreateTodo = {
       user,
       text: 'by button',
@@ -22,7 +23,7 @@ const Temp = () => {
       status: 'notStarted',
       priority: 'high',
     };
-    addTodo(temp);
+    dispatch(addTodoRequest({ todo: temp }));
   };
 
   const handleGetAll = () => {
