@@ -6,14 +6,15 @@ import 'antd/dist/antd.css';
 import { Provider } from 'react-redux';
 import GlobalStyles from './assets/styles/GlobalStyles';
 import { ThemeProvider } from 'styled-components';
-import { Theme } from './assets/styles/Theme';
+import { Theme } from 'assets/styles/Theme';
+import { media } from 'assets/styles/media';
 
 const ModalContext = React.createContext<string>('modal');
 
 ReactDOM.render(
   <Provider store={store}>
     <GlobalStyles />
-    <ThemeProvider theme={{ ...Theme }}>
+    <ThemeProvider theme={{ ...Theme, ...media }}>
       <ModalContext.Provider value="modal">
         <App />
       </ModalContext.Provider>
