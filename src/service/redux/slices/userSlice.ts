@@ -37,9 +37,9 @@ export const userSlice = createSlice({
       state.uid = action.payload.uid;
     },
     loginFailure: (state: UserState) => {
-      console.log('-------- login failed ---------');
       state.status = 'failed';
     },
+    logoutRequest: () => {},
   },
 });
 
@@ -48,9 +48,7 @@ export const {
   loginSuccess,
   loginFailure,
   clear,
-  // logoutRequest,
-  // logoutSuccess,
-  // logoutFailure,
+  logoutRequest,
 } = userSlice.actions;
 
 export const userSelector = (state: RootState) => state.user;

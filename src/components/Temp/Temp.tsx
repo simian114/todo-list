@@ -1,11 +1,16 @@
 import React from 'react';
-import { CreateTodo, UpdateTodo } from 'service/redux/slices/todosSlice';
-import { userSelector } from 'service/redux/slices/userSlice';
-import { useSelector } from 'react-redux';
-import { addTodo, getAll, removeTodo, updateTodo } from 'service/todos';
+import {
+  CreateTodo,
+  getTodosRequest,
+  UpdateTodo,
+} from 'service/redux/slices/todosSlice';
+import { logoutRequest, userSelector } from 'service/redux/slices/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTodo, removeTodo, updateTodo } from 'service/todos';
 
 const Temp = () => {
   const user = useSelector(userSelector).uid;
+  const dispatch = useDispatch();
 
   const handleClick = async () => {
     const temp: CreateTodo = {
@@ -20,9 +25,8 @@ const Temp = () => {
     addTodo(temp);
   };
 
-  const handleGetAll = async () => {
-    const a = await getAll(user);
-    console.log(a);
+  const handleGetAll = () => {
+    dispatch(getTodosRequest({ userId: user }));
   };
 
   const handleRemoveTodo = async () => {
@@ -37,12 +41,16 @@ const Temp = () => {
     };
     await updateTodo(temp);
   };
+  const handleLogout = async () => {
+    dispatch(logoutRequest());
+  };
   return (
     <div>
       <button onClick={handleClick}>Add</button>
       <button onClick={handleGetAll}>getAll</button>
       <button onClick={handleRemoveTodo}>removeTodo</button>
       <button onClick={handleUpdateTodo}>updateTodo</button>
+      <button onClick={handleLogout}>logout</button>
     </div>
   );
 };
