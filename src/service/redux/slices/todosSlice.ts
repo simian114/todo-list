@@ -3,6 +3,7 @@ import { RootState } from 'service/redux/store';
 
 type TodoStatus = 'notStarted' | 'onGoing' | 'completed';
 type TodoPriority = 'low' | 'middle' | 'high';
+type TodoCategory = 'work' | 'study' | 'life' | 'exercise' | 'etc';
 
 export type Todo = {
   id: string;
@@ -11,6 +12,7 @@ export type Todo = {
   due: Date;
   status: TodoStatus;
   priority: TodoPriority;
+  category: TodoCategory;
   createdAt: Date;
   updatedAt: Date;
 };

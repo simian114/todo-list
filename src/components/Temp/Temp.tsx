@@ -21,6 +21,7 @@ const Temp = () => {
       updatedAt: new Date(),
       due: new Date(),
       status: 'notStarted',
+      category: 'etc',
       priority: 'high',
     };
     dispatch(addTodoRequest({ todo: temp }));
