@@ -1,5 +1,6 @@
-import { all, put, call, takeEvery } from 'redux-saga/effects';
-import { loginRequest, loginSuccess, loginFailure } from '../userSlice';
+import { put, call, takeEvery } from 'redux-saga/effects';
+import { loginRequest, loginSuccess, loginFailure } from '../slices/userSlice';
+import { getTodosRequest } from '../slices/todosSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
 import Auth from 'service/auth';
 
@@ -17,17 +18,16 @@ function* login(
 ): Generator<any, void, any> {
   try {
     const response = yield call(auth.login, action.payload.provider);
+    const uid = response.user.uid;
     yield put(loginSuccess({ uid: response.user.uid }));
+    // NOTE: 로그인이 성공하면 바로 todoRequest 를 날린다.
+    yield put(getTodosRequest({ userId: uid }));
   } catch (error) {
     console.log(error);
     yield put(loginFailure());
   }
 }
 
-function* watchLogin() {
+export default function* watchLogin() {
   yield takeEvery(loginRequest.type, login);
-}
-
-export default function* rootSaga() {
-  yield all([watchLogin()]);
 }
