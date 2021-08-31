@@ -1,37 +1,51 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import moment, { Moment } from 'moment';
-import { Button, DatePicker, Dropdown, Input, Menu } from 'antd';
+import { Button, DatePicker, Dropdown, Input, Menu, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { getKST } from 'utils';
-import categoryConverter from '../../utils/categoryConverter';
+import {
+  addTodoRequest,
+  CreateTodo,
+  TodoCategory,
+  TodoPriority,
+} from 'service/redux/slices/todosSlice';
+import { userSelector } from 'service/redux/slices/userSlice';
+import { getKST, categoryConverter, priorityConverter } from 'utils';
+import { useTodoForm } from 'utils/hooks';
+
+const todoInitialValue = {
+  text: '',
+  due: moment(getKST()),
+  status: 'notStarted',
+  category: '업무',
+  priority: '중간',
+};
 
 const TodoForm: React.FC = () => {
-  const [value, setValue] = useState<string>('');
-  const [due, setDue] = useState<Moment>(moment(getKST()));
-  const [category, setCategory] = useState('업무');
+  const {
+    values,
+    handleInputChange,
+    handleDateChange,
+    handleChangeCategory,
+    handleChangePriority,
+    initValues,
+  } = useTodoForm(todoInitialValue);
+  const user = useSelector(userSelector).uid;
+  const dispatch = useDispatch();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('----------- submit -----------');
-    console.log(`input: ${value}`);
-    console.log(`due: ${due}`);
-    console.log(`category: ${categoryConverter(category)}`);
-    console.log('------------------------------');
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setValue(value);
-  };
-
-  const handleDateChange = (date: Moment | null) => {
-    if (!date) return;
-    setDue(date);
-  };
-
-  const handleChangeCategory = ({ key }: { key: string }) => {
-    setCategory(key);
+    if (!values.text || values.text.length > 50) {
+      message.error({
+        content: '입력은 최대 100자 까지 가능합니다.',
+        duration: 1,
+      });
+      return;
+    }
+    const todo: CreateTodo = makeCreateTodo(user, values);
+    dispatch(addTodoRequest({ todo }));
+    initValues();
   };
 
   const menu = (
@@ -43,17 +57,32 @@ const TodoForm: React.FC = () => {
       <Menu.Item key="기타">기타</Menu.Item>
     </Menu>
   );
+  const PriorityMenu = (
+    <Menu onClick={handleChangePriority}>
+      <Menu.Item key="중간">중간</Menu.Item>
+      <Menu.Item key="높음">높음</Menu.Item>
+      <Menu.Item key="낮음">낮음</Menu.Item>
+    </Menu>
+  );
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <StyledInput onChange={handleInputChange} placeholder="todo 입력하세요" />
+      <StyledInput
+        value={values.text}
+        onChange={handleInputChange}
+        placeholder="todo 입력하세요"
+      />
       <StyledDatePicker
         onChange={handleDateChange}
-        value={due}
+        value={values.due}
         disabledDate={disabledDate}
       />
       <StyledDropdown overlay={menu} placement="bottomLeft" arrow>
-        <Button>{category}</Button>
+        <Button>{values.category}</Button>
+      </StyledDropdown>
+
+      <StyledDropdown overlay={PriorityMenu} placement="bottomLeft" arrow>
+        <Button>{values.priority}</Button>
       </StyledDropdown>
       {/* TODO: loading 넣기 */}
       <StyledButton htmlType="submit" size="large" loading={false}>
@@ -62,6 +91,17 @@ const TodoForm: React.FC = () => {
     </StyledForm>
   );
 };
+
+function makeCreateTodo(user: string, values: any): CreateTodo {
+  return {
+    user,
+    text: values.text,
+    due: values.due.toDate(),
+    status: 'notStarted',
+    priority: priorityConverter(values.priority) as TodoPriority,
+    category: categoryConverter(values.category) as TodoCategory,
+  };
+}
 
 function disabledDate(current: Moment) {
   return current < moment().startOf('day');

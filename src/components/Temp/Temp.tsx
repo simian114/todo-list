@@ -17,8 +17,6 @@ const Temp = () => {
     const temp: CreateTodo = {
       user,
       text: 'by button',
-      createdAt: new Date(),
-      updatedAt: new Date(),
       due: new Date(),
       status: 'notStarted',
       category: 'etc',

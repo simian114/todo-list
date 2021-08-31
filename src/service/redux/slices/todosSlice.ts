@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'service/redux/store';
 
-type TodoStatus = 'notStarted' | 'onGoing' | 'completed';
-type TodoPriority = 'low' | 'middle' | 'high';
-type TodoCategory = 'work' | 'study' | 'life' | 'exercise' | 'etc';
+export type TodoStatus = 'notStarted' | 'onGoing' | 'completed';
+export type TodoPriority = 'low' | 'middle' | 'high';
+export type TodoCategory = 'work' | 'study' | 'life' | 'exercise' | 'etc';
 
 export type Todo = {
   id: string;
@@ -17,7 +17,7 @@ export type Todo = {
   updatedAt: Date;
 };
 
-export type CreateTodo = Omit<Todo, 'id'>;
+export type CreateTodo = Omit<Todo, 'id' | 'updatedAt' | 'createdAt'>;
 export type UpdateTodo = Partial<Todo>;
 
 export interface TodosState {
