@@ -1,9 +1,10 @@
 import { Card, Menu, Dropdown } from 'antd';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Todo } from 'service/redux/slices/todosSlice';
+import { Todo, TodoPriority } from 'service/redux/slices/todosSlice';
 import TodoItem from '../TodoItem/TodoItem';
 import { Button } from 'antd/lib/radio';
+import { sortTodos } from 'utils';
 
 interface TodoSectionProps {
   title: string;
@@ -11,57 +12,43 @@ interface TodoSectionProps {
   todos: Todo[];
 }
 
-const todo: Todo = {
-  id: 'string',
-  user: 'string',
-  text: 'string',
-  due: new Date(),
-  status: 'onGoing',
-  priority: 'high',
-  category: 'work',
-  createdAt: new Date(),
-  updatedAt: new Date(),
-};
-
 const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
   const [orderKey, setOrderKey] = useState<string>('사용자지정');
-
-  const onTabChange = (key: string) => {
-    console.log(key);
-  };
+  const [activeTab, setActiveTab] = useState<TodoPriority | 'all'>('all');
 
   const handleChangeOrder = ({ key }: { key: string }) => {
     setOrderKey(key);
+    console.log(key);
   };
 
-  const menu = (
-    <Menu onClick={handleChangeOrder}>
-      <Menu.Item key="사용자지정">사용자지정</Menu.Item>
-      <Menu.Item key="신규순">신규순</Menu.Item>
-      <Menu.Item key="오래된순">오래된순</Menu.Item>
-      <Menu.Item key="중요도">중요도</Menu.Item>
-      <Menu.Item key="마감임박">마감임박</Menu.Item>
-    </Menu>
-  );
+  const handleTabChange = (key: TodoPriority | 'all'): void => {
+    setActiveTab(key);
+  };
 
-  // TODO: order 로 정렬하고 출력하기
-  // const orderedAndFilteredTodos = orederBy(orderKey);
+  const orderedAndFilteredTodos = filterByPriority(
+    activeTab,
+    sortTodos(todos, orderKey),
+  );
   return (
     <StyledTodoSection
       className="todoSection"
       title={title}
       tabList={tabList}
-      onTabChange={onTabChange}
-      // TODO: activeTabKey
+      activeTabKey={activeTab}
+      onTabChange={(key) => handleTabChange(key as TodoPriority | 'all')}
       extra={
-        <Dropdown overlay={menu} placement="bottomLeft" arrow>
+        <Dropdown
+          overlay={dropdownMenu(handleChangeOrder)}
+          placement="bottomLeft"
+          arrow
+        >
           <Button>{orderKey}</Button>
         </Dropdown>
       }
       style={{ width: '100%' }}
     >
       <StyledContainer>
-        {todos.map((todo) => (
+        {orderedAndFilteredTodos.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))}
       </StyledContainer>
@@ -70,6 +57,28 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
 };
 
 export default TodoSection;
+
+const dropdownMenu = (
+  handler: ({ key }: { key: string }) => void,
+): JSX.Element => {
+  return (
+    <Menu onClick={handler}>
+      <Menu.Item key="사용자지정">사용자지정</Menu.Item>
+      <Menu.Item key="최신순">최신순</Menu.Item>
+      <Menu.Item key="오래된순">오래된순</Menu.Item>
+      <Menu.Item key="중요도">중요도</Menu.Item>
+      <Menu.Item key="마감임박">마감임박</Menu.Item>
+    </Menu>
+  );
+};
+
+const filterByPriority = (
+  priority: TodoPriority | 'all',
+  todos: Todo[],
+): Todo[] => {
+  if (priority === 'all') return todos;
+  return todos.filter((todo) => todo.priority === priority);
+};
 
 const StyledContainer = styled.div`
   display: flex;
