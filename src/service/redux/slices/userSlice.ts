@@ -24,14 +24,12 @@ export const userSlice = createSlice({
       // NOTE: 이거 없으면 saga의 watchLogin 에 인자안감
       action: PayloadAction<{ provider: string }>,
     ) => {
-      console.log('------login request------');
       state.status = 'loading';
     },
     loginSuccess: (
       state: UserState,
       action: PayloadAction<{ uid: string }>,
     ) => {
-      console.log('---------login success--------', action.payload.uid);
       state.status = 'idle';
       state.uid = action.payload.uid;
     },
