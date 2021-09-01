@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Header from './Header';
 
 interface Props {
-  children: JSX.Element;
+  children: JSX.Element[];
 }
 
 const Layout: React.FC<Props> = ({ children }) => {
@@ -20,7 +20,7 @@ const Main = styled.main`
   padding-top: 75px;
   max-width: 1024px;
   margin: auto;
-  background-color: yellow;
+  background-color: #fafafa;
   height: calc(100vh);
 `;
 
