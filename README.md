@@ -20,20 +20,17 @@
 - [x] `todo` 추가, 수정, 삭제
 
 ## 추후 수정 및 추가
+> [ISSUE](https://github.com/simian114/wanted-preOnBoarding-project10/issues)
 
 - [ ] 리팩토링
 - [ ] 필터링 기능
-  - 카테고리, 우선순위, 날짜
 - [ ] 드래그앤드랍
-  - 전역상태로 관리
 - [ ] 하나의 todo 에 checklist
 - [ ] 로그인 유지
-  - localStorage 사용
 - [ ] 다양한 auth로 로그인
 - [ ] 디자인 수정
 - [ ] 파이어스토어 모델 간 연관관계 맺기
 - [ ] `todo` 모델 수정
-  - 현재의 text 를 title, description, checklist로 바꾸기
 
 ---
 
