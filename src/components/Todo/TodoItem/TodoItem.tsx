@@ -114,9 +114,9 @@ const StyledBadge = styled(Badge)<{ backgroundColor?: string }>`
 
 const StyledTodoItem = styled(Card)`
   min-width: 230px;
-  height: 150px;
   width: 230px;
   background-colir: pink;
+  margin-bottom: 20px;
   ${({ theme }) => theme.tablet`
     max-width: 230px;
   `}
