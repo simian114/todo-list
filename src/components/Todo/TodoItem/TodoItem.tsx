@@ -1,30 +1,53 @@
-import { Badge, Card, Tag } from 'antd';
+import { Badge, Card, Popconfirm, Tag } from 'antd';
 import moment from 'moment';
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  removeTodoRequest,
   Todo,
   TodoCategory,
   TodoPriority,
   TodoStatus,
+  UpdateTodo,
+  updateTodoRequest,
 } from 'service/redux/slices/todosSlice';
 import styled from 'styled-components';
 import { getKST, categoryConverter } from 'utils';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { priorityConverter, statusConverter } from 'utils';
+import { useDispatch } from 'react-redux';
+import EditTodoModal from 'components/EditTodoModal';
 
 interface TodoItemPRops {
   todo: Todo;
 }
 
 const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
-  // NOTE: TODO 가 prop으로 내려옴
-  const today = getKST();
-  const DDay = moment(todo.due).diff(moment(today), 'day');
-
-  const handleActions = (e: any) => {
-    console.log(e.target);
+  const dispatch = useDispatch();
+  const [editModal, setEditModal] = useState<boolean>(false);
+  const handleToggleEdit = () => {
+    setEditModal(!editModal);
   };
 
+  const handleClickChangeStatus = () => {
+    const { id, status } = todo;
+    const options = {
+      notStarted: 'onGoing',
+      onGoing: 'completed',
+      completed: 'onGoing',
+    };
+    const updateTodo: UpdateTodo = {
+      id,
+      status: options[status] as TodoStatus,
+    };
+    dispatch(updateTodoRequest({ updateTodo }));
+  };
+
+  const handleDelete = () => {
+    dispatch(removeTodoRequest({ id: todo.id }));
+  };
+
+  const today = getKST();
+  const DDay = moment(todo.due).diff(moment(today), 'day');
   return (
     <StyledTodoItem
       title={todo.text}
@@ -34,9 +57,16 @@ const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
         </StyledCategoryTag>
       }
       actions={[
-        <EditOutlined onClick={handleActions} key="edit" />,
-        <DeleteOutlined key="delete" />,
-        <StyledStatusAction key="toggle">
+        <EditOutlined onClick={handleToggleEdit} />,
+        <Popconfirm
+          title="정말로 삭제하시겠습니까?"
+          okText="Yes"
+          cancelText="No"
+          onConfirm={handleDelete}
+        >
+          <DeleteOutlined />
+        </Popconfirm>,
+        <StyledStatusAction onClick={handleClickChangeStatus}>
           {makeStatusActionDesc(todo.status)}
         </StyledStatusAction>,
       ]}
@@ -52,6 +82,13 @@ const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
           text={statusConverter(todo.status)}
         />
       </StyledContainer>
+      {editModal && (
+        <EditTodoModal
+          visible={editModal}
+          closeModal={handleToggleEdit}
+          todo={todo}
+        />
+      )}
     </StyledTodoItem>
   );
 };
