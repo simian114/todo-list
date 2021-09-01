@@ -1,4 +1,4 @@
-const kr = ['시작안함', '진행중', '끝'];
+const kr = ['시작안함', '진행중', '완료'];
 const en = ['notStarted', 'onGoing', 'completed'];
 
 const statusConverter = (val: string) => {
