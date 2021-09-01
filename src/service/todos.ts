@@ -25,6 +25,7 @@ class Todo {
   user: string;
   status: string;
   priority: string;
+  category: string;
   due: Date;
   updatedAt: Date;
   createdAt: Date;
@@ -33,6 +34,7 @@ class Todo {
     this.user = todo.user;
     this.text = todo.text;
     this.status = todo.status;
+    this.category = todo.category;
     this.priority = todo.priority;
     this.due = todo.due.toDate();
     this.updatedAt = todo.updatedAt.toDate();
