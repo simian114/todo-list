@@ -1,18 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getDate, getKST } from 'utils';
+import { useSelector, useDispatch } from 'react-redux';
+import { userSelector, logoutRequest } from 'service/redux/slices/userSlice';
+import { Button } from 'antd';
 
 const Header: React.FC = () => {
+  const user = useSelector(userSelector).uid;
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logoutRequest());
+  };
   const today = getKST();
   const dateString = getDate(today, DATE_OPTION);
   const todayMessage = makeTodayMessage(today);
+
   return (
     <StyledHeader>
       <Left>
         <StyledLogo>TodoList</StyledLogo>
         {dateString}
       </Left>
-      <Message>{todayMessage}</Message>
+      <Right>
+        <Message>{todayMessage}</Message>
+        {!!user && (
+          <StyledLogoutButton onClick={handleLogout}>
+            로그아웃
+          </StyledLogoutButton>
+        )}
+      </Right>
     </StyledHeader>
   );
 };
@@ -22,7 +38,20 @@ const Left = styled.div`
   align-items: center;
 `;
 
-const Message = styled.div``;
+const Right = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StyledLogoutButton = styled(Button)`
+  margin-left: 20px;
+`;
+
+const Message = styled.div`
+  ${({ theme }) => theme.tablet`
+    display: none;
+  `}
+`;
 
 const StyledLogo = styled.div`
   font-size: 30px;
@@ -34,12 +63,12 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: fixed;
-  width: 100%;
   padding: 20px;
   background-color: ${({ theme }) => theme.color.white};
   border-bottom: 1px solid #eeeeee;
   z-index: 3;
+  max-width: 1024px;
+  margin: auto;
 `;
 
 export default Header;

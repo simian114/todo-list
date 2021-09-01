@@ -17,11 +17,9 @@ const Layout: React.FC<Props> = ({ children }) => {
 };
 
 const Main = styled.main`
-  padding-top: 75px;
   max-width: 1024px;
   margin: auto;
   background-color: #fafafa;
-  height: calc(100vh);
 `;
 
 export default Layout;
