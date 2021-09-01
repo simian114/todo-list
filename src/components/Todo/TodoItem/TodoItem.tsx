@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import { Badge, Card, Popconfirm, Tag } from 'antd';
 import moment from 'moment';
-import React, { useState } from 'react';
 import {
   removeTodoRequest,
   Todo,
@@ -24,6 +24,7 @@ interface TodoItemPRops {
 const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
   const dispatch = useDispatch();
   const [editModal, setEditModal] = useState<boolean>(false);
+
   const handleToggleEdit = () => {
     setEditModal(!editModal);
   };

@@ -1,10 +1,10 @@
-import { Card, Menu, Dropdown } from 'antd';
+import { Card, Menu, Dropdown, Button } from 'antd';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Todo, TodoPriority } from 'service/redux/slices/todosSlice';
 import TodoItem from '../TodoItem/TodoItem';
-import { Button } from 'antd/lib/radio';
 import { sortTodos } from 'utils';
+// import WithDraggableTodoItem from '../TodoItem';
 
 interface TodoSectionProps {
   title: string;
@@ -18,7 +18,6 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
 
   const handleChangeOrder = ({ key }: { key: string }) => {
     setOrderKey(key);
-    console.log(key);
   };
 
   const handleTabChange = (key: TodoPriority | 'all'): void => {
