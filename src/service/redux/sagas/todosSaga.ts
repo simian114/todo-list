@@ -39,13 +39,7 @@ function* addTodo(
 function* removeTodo(
   action: PayloadAction<{ id: string }>,
 ): Generator<any, any, any> {
-  try {
-    //
-    yield call(TodoService.removeTodo, action.payload.id);
-  } catch (error) {
-    //
-    console.log(error);
-  }
+  yield call(TodoService.removeTodo, action.payload.id);
 }
 
 function* updateTodo(

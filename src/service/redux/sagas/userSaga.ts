@@ -12,7 +12,6 @@ import Auth from 'service/auth';
 
 // NOTE: 참고 블로그
 // LINK: https://kimyang-sun.tistory.com/entry/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EB%A6%AC%EB%8D%95%EC%8A%A4-%ED%88%B4%ED%82%B7-%EB%A6%AC%EB%8D%95%EC%8A%A4-%EC%82%AC%EA%B0%80-React-Redux-Toolkit-Redux-Saga-TypeScript-Nextjs
-
 // NOTE: auth 인스턴스를 여기에 만드는게 맞는건가?
 const auth = new Auth();
 

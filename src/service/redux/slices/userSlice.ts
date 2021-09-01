@@ -4,7 +4,6 @@ import { RootState } from 'service/redux/store';
 export interface UserState {
   uid: string;
   status: 'idle' | 'loading' | 'failed';
-  // status: [keyof Status];
 }
 
 const initialState: UserState = {

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Todo, TodoPriority } from 'service/redux/slices/todosSlice';
 import TodoItem from '../TodoItem/TodoItem';
 import { sortTodos } from 'utils';
-// import WithDraggableTodoItem from '../TodoItem';
 
 interface TodoSectionProps {
   title: string;

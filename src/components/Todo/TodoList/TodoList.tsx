@@ -4,27 +4,7 @@ import TodoSection from '../TodoSection';
 import { useSelector } from 'react-redux';
 import { Todo, todosSelector } from 'service/redux/slices/todosSlice';
 
-const tabList = [
-  {
-    key: 'all',
-    tab: '전체',
-  },
-  {
-    key: 'low',
-    tab: '낮음',
-  },
-  {
-    key: 'middle',
-    tab: '중간',
-  },
-  {
-    key: 'high',
-    tab: '높음',
-  },
-];
-
 const TodoList: React.FC = () => {
-  // NOTE: todos 가져와서 stats 별로 나누고 넣어주기
   const todos = useSelector(todosSelector).todos;
 
   const notStartedTodos = todos.filter(
@@ -49,6 +29,27 @@ const TodoList: React.FC = () => {
   );
 };
 
+export default TodoList;
+
+const tabList = [
+  {
+    key: 'all',
+    tab: '전체',
+  },
+  {
+    key: 'low',
+    tab: '낮음',
+  },
+  {
+    key: 'middle',
+    tab: '중간',
+  },
+  {
+    key: 'high',
+    tab: '높음',
+  },
+];
+
 const StyledTodoList = styled.div`
   display: flex;
   justify-content: space-between;
@@ -56,5 +57,3 @@ const StyledTodoList = styled.div`
     flex-direction: column;
   `}
 `;
-
-export default TodoList;

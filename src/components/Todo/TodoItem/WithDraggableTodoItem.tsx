@@ -15,22 +15,18 @@ const WithDraggableTodoItem: React.FC<WithDraggableTodoItemProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const {
-    // isDragging,
     overDirection,
-    handleDragStart, // 나
-    handleDragEnter, // 당해
+    handleDragStart,
+    handleDragEnter,
     handleDragOver,
     handleDragLeave,
-    // setOverDirection,
   } = useTodoItemDnD(ref, todo.id);
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    // const a = e.dataTransfer.getData('text/plain');
   };
   console.log(overDirection);
-  // const
   return (
     <>
       {overDirection.length > 1 && overDirection[0] === 'top' && (
@@ -54,12 +50,6 @@ const WithDraggableTodoItem: React.FC<WithDraggableTodoItemProps> = ({
 
 export default WithDraggableTodoItem;
 
-// const
-const test = css`
-  padding-top: 100px;
-`;
-
 const StyledDraggable = styled.div<{ overDirection: DragDirection[] }>`
-  // height: 177px;
   margin-bottom: 20px;
 `;

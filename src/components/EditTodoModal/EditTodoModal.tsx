@@ -51,7 +51,6 @@ const EditTodoModal: React.FC<EditTodoModalProps> = ({
   };
 
   const handleUpdate = () => {
-    // TODO: validation 검사해야함
     if (error) return;
     const { due, ...rest } = values;
     if (!due) return;
