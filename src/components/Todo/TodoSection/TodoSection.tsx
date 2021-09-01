@@ -1,9 +1,9 @@
-import { Card, Menu, Dropdown, Button } from 'antd';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Card, Menu, Dropdown, Button } from 'antd';
 import { Todo, TodoPriority } from 'service/redux/slices/todosSlice';
-import TodoItem from '../TodoItem/TodoItem';
 import { sortTodos } from 'utils';
+import TodoItem from '../TodoItem/TodoItem';
 
 interface TodoSectionProps {
   title: string;

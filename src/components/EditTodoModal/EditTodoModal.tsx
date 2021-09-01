@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Input, Modal, Form, DatePicker, Radio, Alert } from 'antd';
+import moment, { Moment } from 'moment';
 import {
   Todo,
   TodoStatus,
@@ -8,8 +10,6 @@ import {
   updateTodoRequest,
   UpdateTodo,
 } from 'service/redux/slices/todosSlice';
-import moment, { Moment } from 'moment';
-import { useDispatch } from 'react-redux';
 import { priorityConverter, statusConverter, categoryConverter } from 'utils';
 
 interface EditTodoModalProps {

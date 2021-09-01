@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import { Modal, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import { Modal, Spin } from 'antd';
+import {
+  GithubLoginButton,
+  GoogleLoginButton,
+} from 'react-social-login-buttons';
 import {
   clear,
   loginRequest,
   userSelector,
 } from 'service/redux/slices/userSlice';
-import {
-  GithubLoginButton,
-  GoogleLoginButton,
-} from 'react-social-login-buttons';
 import { LOGIN_STATUS, PROVIDERS } from 'utils/constants';
 
 interface LoginModalProps {

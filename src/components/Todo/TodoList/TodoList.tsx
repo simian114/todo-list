@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import TodoSection from '../TodoSection';
 import { useSelector } from 'react-redux';
 import { Todo, todosSelector } from 'service/redux/slices/todosSlice';
+import TodoSection from '../TodoSection';
 
 const TodoList: React.FC = () => {
   const todos = useSelector(todosSelector).todos;

@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { getDate, getKST } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
-import { userSelector, logoutRequest } from 'service/redux/slices/userSlice';
 import { Button } from 'antd';
+import { userSelector, logoutRequest } from 'service/redux/slices/userSlice';
+import { getDate, getKST } from 'utils';
 
 const Header: React.FC = () => {
   const user = useSelector(userSelector).uid;

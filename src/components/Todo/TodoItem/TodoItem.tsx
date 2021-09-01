@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Badge, Card, Popconfirm, Tag } from 'antd';
 import moment from 'moment';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import {
   removeTodoRequest,
   Todo,
@@ -11,10 +13,12 @@ import {
   updateTodoRequest,
 } from 'service/redux/slices/todosSlice';
 import styled from 'styled-components';
-import { getKST, categoryConverter } from 'utils';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { priorityConverter, statusConverter } from 'utils';
-import { useDispatch } from 'react-redux';
+import {
+  getKST,
+  categoryConverter,
+  priorityConverter,
+  statusConverter,
+} from 'utils';
 import EditTodoModal from 'components/EditTodoModal';
 
 interface TodoItemPRops {

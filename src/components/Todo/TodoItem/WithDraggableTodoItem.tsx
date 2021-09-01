@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
-import { Todo } from 'service/redux/slices/todosSlice';
-import styled, { css } from 'styled-components';
-import { useTodoItemDnD } from 'utils/hooks';
-import TodoItem from './TodoItem';
-import { DragDirection } from 'utils/hooks/useTodoItemDnD';
 import { Card } from 'antd';
+import styled from 'styled-components';
+import { Todo } from 'service/redux/slices/todosSlice';
+import { useTodoItemDnD } from 'utils/hooks';
+import { DragDirection } from 'utils/hooks/useTodoItemDnD';
+import TodoItem from './TodoItem';
 
 interface WithDraggableTodoItemProps {
   todo: Todo;
