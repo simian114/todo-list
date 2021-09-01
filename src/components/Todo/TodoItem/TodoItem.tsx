@@ -47,7 +47,7 @@ const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
   };
 
   const today = getKST();
-  const DDay = moment(todo.due).diff(moment(today), 'day');
+  const DDay = moment(todo.due).diff(moment(today).startOf('day'), 'day');
   return (
     <StyledTodoItem
       title={todo.text}
@@ -72,7 +72,7 @@ const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
       ]}
     >
       <StyledContainer>
-        <StyledDDay passed={DDay < 0}>D-{DDay}</StyledDDay>
+        <StyledDDay passed={DDay < 0}>D-{Math.abs(DDay)}</StyledDDay>
         <StyledBadge
           count={priorityConverter(todo.priority)}
           style={{ backgroundColor: makePriorityColor(todo.priority) }}
