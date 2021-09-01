@@ -55,7 +55,6 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
       // TODO: activeTabKey
       extra={
         <Dropdown overlay={menu} placement="bottomLeft" arrow>
-          {/* <Button>{orderKey}</Button> */}
           <Button>{orderKey}</Button>
         </Dropdown>
       }
@@ -63,13 +62,8 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
     >
       <StyledContainer>
         {todos.map((todo) => (
-          <TodoItem todo={todo} />
+          <TodoItem key={todo.id} todo={todo} />
         ))}
-        <TodoItem todo={todo} />
-        <TodoItem todo={todo} />
-        <TodoItem todo={todo} />
-        <TodoItem todo={todo} />
-        <TodoItem todo={todo} />
       </StyledContainer>
     </StyledTodoSection>
   );
