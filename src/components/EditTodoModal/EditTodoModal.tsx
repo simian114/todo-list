@@ -81,9 +81,10 @@ const EditTodoModal: React.FC<EditTodoModalProps> = ({
         <Form.Item label="title" name="text">
           <Input value={values.text} placeholder="빈칸으로 두지 마세염" />
         </Form.Item>
-        <Form.Item label="title" name="check">
-          <div>최종적으로는 체크리스트를 만들예정</div>
-        </Form.Item>
+        {/* TODO: 체크리스트 넣을곳 */}
+        {/* <Form.Item label="title" name="check">
+          <div></div>
+        </Form.Item> */}
         <Form.Item label="완료 목표일" name="due">
           <DatePicker
             disabledDate={disabledDate}
