@@ -17,10 +17,10 @@ import {
 import {
   Todo as ITodo,
   CreateTodo,
-  // UpdateTodo,
   TodoStatus,
   TodoPriority,
   TodoCategory,
+  UpdateTodo,
 } from 'service/redux/slices/todosSlice';
 
 class TodoWorker {
@@ -70,6 +70,16 @@ class TodoWorker {
     await updateDoc(this.userRef, {
       todos: arrayRemove(todoId),
     });
+  };
+
+  updateTodo = async (todo: UpdateTodo) => {
+    const targetRef = doc(this.todosRef, todo.id);
+    await updateDoc(targetRef, {
+      ...todo,
+      updatedAt: serverTimestamp(),
+    });
+    const updatedTodo = await getDoc(targetRef);
+    return new Todo(updatedTodo.data());
   };
 }
 

@@ -50,7 +50,7 @@ function* removeTodo(
 function* updateTodo(
   action: PayloadAction<{ updateTodo: UpdateTodo }>,
 ): Generator<any, any, any> {
-  yield call(TodoService.updateTodo, action.payload.updateTodo);
+  yield call(todoWorker.updateTodo, action.payload.updateTodo);
 }
 
 function* watchGetTodos() {
