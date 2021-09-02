@@ -44,7 +44,7 @@ function* addTodo(
 function* removeTodo(
   action: PayloadAction<{ id: string }>,
 ): Generator<any, any, any> {
-  yield call(TodoService.removeTodo, action.payload.id);
+  yield call(todoWorker.removeTodo, action.payload.id);
 }
 
 function* updateTodo(

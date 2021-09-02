@@ -10,6 +10,8 @@ import {
   DocumentReference,
   DocumentData,
   CollectionReference,
+  deleteDoc,
+  arrayRemove,
 } from 'firebase/firestore';
 
 import {
@@ -60,6 +62,14 @@ class TodoWorker {
       todos: arrayUnion(newTodoRef.id),
     });
     return newTodoRef.id;
+  };
+
+  removeTodo = async (todoId: string) => {
+    this.todos = this.todos.filter((todo) => todo.id !== todoId);
+    await deleteDoc(doc(this.todosRef, todoId));
+    await updateDoc(this.userRef, {
+      todos: arrayRemove(todoId),
+    });
   };
 }
 
