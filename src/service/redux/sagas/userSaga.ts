@@ -8,6 +8,7 @@ import {
 } from '../slices/userSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
 import Auth from 'service/auth';
+import { getUser, registerUser } from 'service/firestore/userService';
 
 // NOTE: 참고 블로그
 // LINK: https://kimyang-sun.tistory.com/entry/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EB%A6%AC%EB%8D%95%EC%8A%A4-%ED%88%B4%ED%82%B7-%EB%A6%AC%EB%8D%95%EC%8A%A4-%EC%82%AC%EA%B0%80-React-Redux-Toolkit-Redux-Saga-TypeScript-Nextjs
@@ -23,6 +24,10 @@ function* login(
   try {
     const response = yield call(auth.login, action.payload.provider);
     const uid = response.user.uid;
+    // NOTE: register
+    // TODO: 'users` 컬렉션에 `users/uid` doc 생성한다.
+    const user = getUser(uid);
+    if (!user) yield call(registerUser, uid);
     yield put(loginSuccess({ uid }));
   } catch (error) {
     console.log(error);
