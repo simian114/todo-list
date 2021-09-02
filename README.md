@@ -18,6 +18,7 @@
 - [x] 백엔드 구현
   - 파이어스토어
 - [x] `todo` 추가, 수정, 삭제
+- [x]  
 
 ## 추후 수정 및 추가
 > [ISSUE](https://github.com/simian114/wanted-preOnBoarding-project10/issues)
