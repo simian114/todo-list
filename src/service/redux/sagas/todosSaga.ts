@@ -1,6 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { takeEvery, put, call, all } from 'redux-saga/effects';
 import * as TodoService from 'service/todos';
+import { loginSuccess } from 'service/redux/slices/userSlice';
 import {
   addTodoFailed,
   addTodoRequest,
@@ -15,10 +16,10 @@ import {
 } from '../slices/todosSlice';
 
 function* getTodos(
-  action: PayloadAction<{ userId: string }>,
+  action: PayloadAction<{ uid: string }>,
 ): Generator<any, void, any> {
   try {
-    const todos = yield call(TodoService.getAll, action.payload.userId);
+    const todos = yield call(TodoService.getAll, action.payload.uid);
     yield put(getTodosSuccess({ todos }));
   } catch (error) {
     yield put(getTodosFailed());
@@ -50,6 +51,7 @@ function* updateTodo(
 
 function* watchGetTodos() {
   yield takeEvery(getTodosRequest.type, getTodos);
+  yield takeEvery(loginSuccess.type, getTodos);
 }
 
 function* watchAddTodo() {

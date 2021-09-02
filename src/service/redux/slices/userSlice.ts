@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'service/redux/store';
+import { localStorageHelper } from 'utils';
 
 export interface UserState {
   uid: string;
@@ -30,13 +31,16 @@ export const userSlice = createSlice({
       state: UserState,
       action: PayloadAction<{ uid: string }>,
     ) => {
+      localStorageHelper.setItem('todo-user', action.payload.uid);
       state.status = 'idle';
       state.uid = action.payload.uid;
     },
     loginFailure: (state: UserState) => {
       state.status = 'failed';
     },
-    logoutRequest: () => {},
+    logoutRequest: () => {
+      localStorageHelper.removeItem('todo-user');
+    },
   },
 });
 

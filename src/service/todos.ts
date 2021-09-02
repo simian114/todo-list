@@ -52,8 +52,8 @@ const todoConverter = {
   },
 };
 
-const getAll = async (userId: string) => {
-  const q = query(todosRef, where('user', '==', userId)).withConverter(
+const getAll = async (uid: string) => {
+  const q = query(todosRef, where('user', '==', uid)).withConverter(
     todoConverter,
   );
   const querySnapshot = await getDocs(q);

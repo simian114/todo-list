@@ -36,7 +36,7 @@ export const todosSlice = createSlice({
   reducers: {
     getTodosRequest: (
       state: TodosState,
-      action: PayloadAction<{ userId: string }>,
+      action: PayloadAction<{ uid: string }>,
     ) => {
       state.status = 'loading';
     },

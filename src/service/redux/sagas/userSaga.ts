@@ -6,7 +6,6 @@ import {
   logoutRequest,
   clear,
 } from '../slices/userSlice';
-import { getTodosRequest } from '../slices/todosSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
 import Auth from 'service/auth';
 
@@ -24,8 +23,7 @@ function* login(
   try {
     const response = yield call(auth.login, action.payload.provider);
     const uid = response.user.uid;
-    yield put(loginSuccess({ uid: response.user.uid }));
-    yield put(getTodosRequest({ userId: uid }));
+    yield put(loginSuccess({ uid }));
   } catch (error) {
     console.log(error);
     yield put(loginFailure());
