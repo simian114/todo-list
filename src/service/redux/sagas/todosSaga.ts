@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { takeEvery, put, call, all } from 'redux-saga/effects';
+import TodoWorker from 'service/firestore/todoService';
 import * as TodoService from 'service/todos';
 import { loginSuccess } from 'service/redux/slices/userSlice';
 import {
@@ -15,11 +16,13 @@ import {
   updateTodoRequest,
 } from '../slices/todosSlice';
 
+const todoWorker = new TodoWorker('qi9QgyeEGmdiEmLWj26ZULJRAGI3');
+
 function* getTodos(
   action: PayloadAction<{ uid: string }>,
 ): Generator<any, void, any> {
   try {
-    const todos = yield call(TodoService.getAll, action.payload.uid);
+    const todos = yield call(todoWorker.getAll);
     yield put(getTodosSuccess({ todos }));
   } catch (error) {
     yield put(getTodosFailed());
@@ -30,7 +33,7 @@ function* addTodo(
   action: PayloadAction<{ todo: Todo }>,
 ): Generator<any, void, any> {
   try {
-    const newTodoId = yield call(TodoService.addTodo, action.payload.todo);
+    const newTodoId = yield call(todoWorker.addTodo, action.payload.todo);
     const newTodo = yield call(TodoService.getTodo, newTodoId);
     yield put(addTodoSuccess({ todo: newTodo }));
   } catch (error) {
