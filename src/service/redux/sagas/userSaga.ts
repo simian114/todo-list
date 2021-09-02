@@ -26,7 +26,7 @@ function* login(
     const uid = response.user.uid;
     // NOTE: register
     // TODO: 'users` 컬렉션에 `users/uid` doc 생성한다.
-    const user = getUser(uid);
+    const user = yield call(getUser, uid);
     if (!user) yield call(registerUser, uid);
     yield put(loginSuccess({ uid }));
   } catch (error) {

@@ -25,30 +25,35 @@ import {
 
 class TodoWorker {
   private todosRef: CollectionReference<DocumentData>;
-  private userRef: DocumentReference<DocumentData>;
+  private userRef: DocumentReference<DocumentData> | null;
   private userId: string;
   public todos: ITodo[];
-  constructor(userId: string) {
-    this.userId = userId;
+  constructor() {
+    this.userId = '';
     this.todosRef = collection(db, 'todos');
-    this.userRef = doc(db, `users/${this.userId}`);
+    this.userRef = null;
     this.todos = [];
+  }
+
+  init(userId: string) {
+    this.userId = userId;
+    this.userRef = doc(db, `users/${this.userId}`);
   }
 
   private readIds = async (ids: string[]) => {
     const reads = ids.map((id: string) => getDoc(doc(this.todosRef, id)));
     const result = await Promise.all(reads);
-    return result.map((v) => new Todo(v.data()));
+    return result.map((v) => new TodoConverter(v.data()));
   };
 
   getTodo = async (todoId: string) => {
     const ref = doc(this.todosRef, todoId);
     const docRef = await getDoc(ref);
-    return new Todo(docRef.data());
+    return new TodoConverter(docRef.data());
   };
 
   getAll = async () => {
-    const user = await getDoc(this.userRef);
+    const user = await getDoc(this.userRef!);
     const todosIds = user.get('todos');
     const res = await this.readIds(todosIds);
     this.todos = res;
@@ -64,7 +69,7 @@ class TodoWorker {
       updatedAt: serverTimestamp(),
       ref: doc(db, `users/${this.userId}`),
     });
-    await updateDoc(this.userRef, {
+    await updateDoc(this.userRef!, {
       todos: arrayUnion(newTodoRef.id),
     });
     return newTodoRef.id;
@@ -73,7 +78,7 @@ class TodoWorker {
   removeTodo = async (todoId: string) => {
     this.todos = this.todos.filter((todo) => todo.id !== todoId);
     await deleteDoc(doc(this.todosRef, todoId));
-    await updateDoc(this.userRef, {
+    await updateDoc(this.userRef!, {
       todos: arrayRemove(todoId),
     });
   };
@@ -85,11 +90,11 @@ class TodoWorker {
       updatedAt: serverTimestamp(),
     });
     const updatedTodo = await getDoc(targetRef);
-    return new Todo(updatedTodo.data());
+    return new TodoConverter(updatedTodo.data());
   };
 }
 
-class Todo {
+export class TodoConverter {
   id: string;
   text: string;
   user: string;
@@ -112,14 +117,14 @@ class Todo {
   }
 }
 
-const todoConverter = {
-  toFirestore: function (todo: ITodo) {
-    return todo;
-  },
-  fromFirestore: function (snapshot: any) {
-    const data = snapshot.data();
-    return new Todo(data);
-  },
-};
+// const todoConverter = {
+//   toFirestore: function (todo: ITodo) {
+//     return todo;
+//   },
+//   fromFirestore: function (snapshot: any) {
+//     const data = snapshot.data();
+//     return new TodoConverter(data);
+//   },
+// };
 
 export default TodoWorker;
