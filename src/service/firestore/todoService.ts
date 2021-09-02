@@ -41,6 +41,12 @@ class TodoWorker {
     return result.map((v) => new Todo(v.data()));
   };
 
+  getTodo = async (todoId: string) => {
+    const ref = doc(this.todosRef, todoId);
+    const docRef = await getDoc(ref);
+    return new Todo(docRef.data());
+  };
+
   getAll = async () => {
     const user = await getDoc(this.userRef);
     const todosIds = user.get('todos');
