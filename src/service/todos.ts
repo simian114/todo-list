@@ -1,7 +1,6 @@
 import { db } from 'firebase';
 import {
   doc,
-  addDoc,
   collection,
   deleteDoc,
   getDocs,
@@ -10,6 +9,7 @@ import {
   updateDoc,
   serverTimestamp,
   getDoc,
+  setDoc,
 } from 'firebase/firestore';
 
 import {
@@ -64,16 +64,21 @@ const getAll = async (uid: string) => {
   return todos;
 };
 
+const getTodo = async (todoId: string) => {
+  const ref = doc(todosRef, todoId);
+  const docRef = await getDoc(ref);
+  return new Todo(docRef.data());
+};
+
 const addTodo = async (todo: CreateTodo) => {
-  const temp = await addDoc(todosRef, {
+  const newTodoRef = doc(todosRef);
+  await setDoc(newTodoRef, {
     ...todo,
+    id: newTodoRef.id,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
-  await updateDoc(temp, { id: temp.id });
-  const newTodoRef = doc(todosRef, temp.id);
-  const newTodo = await getDoc(newTodoRef);
-  return new Todo(newTodo.data());
+  return newTodoRef.id;
 };
 
 const removeTodo = async (todoId: string) => {
@@ -90,4 +95,4 @@ const updateTodo = async (todo: UpdateTodo) => {
   return new Todo(updatedTodo.data());
 };
 
-export { getAll, addTodo, removeTodo, updateTodo };
+export { getAll, getTodo, addTodo, removeTodo, updateTodo };

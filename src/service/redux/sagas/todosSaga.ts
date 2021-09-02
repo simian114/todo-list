@@ -30,7 +30,8 @@ function* addTodo(
   action: PayloadAction<{ todo: Todo }>,
 ): Generator<any, void, any> {
   try {
-    const newTodo = yield call(TodoService.addTodo, action.payload.todo);
+    const newTodoId = yield call(TodoService.addTodo, action.payload.todo);
+    const newTodo = yield call(TodoService.getTodo, newTodoId);
     yield put(addTodoSuccess({ todo: newTodo }));
   } catch (error) {
     yield put(addTodoFailed());

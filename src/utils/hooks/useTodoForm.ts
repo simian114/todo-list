@@ -36,7 +36,6 @@ const useTodoForm = (todoInitialValue: TodoInitialValue) => {
   };
 
   const initValues = () => {
-    console.log('zz');
     setValues({ ...todoInitialValue });
   };
   return {
