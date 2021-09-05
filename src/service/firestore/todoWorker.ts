@@ -96,7 +96,7 @@ class TodoWorker {
 
 export class TodoConverter {
   id: string;
-  text: string;
+  title: string;
   user: string;
   status: TodoStatus;
   priority: TodoPriority;
@@ -107,7 +107,7 @@ export class TodoConverter {
   constructor(todo: any) {
     this.id = todo.id;
     this.user = todo.user;
-    this.text = todo.text;
+    this.title = todo.title;
     this.status = todo.status;
     this.category = todo.category;
     this.priority = todo.priority;

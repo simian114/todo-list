@@ -55,7 +55,7 @@ const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
   const DDay = moment(todo.due).diff(moment(today).startOf('day'), 'day');
   return (
     <StyledTodoItem
-      title={todo.text}
+      title={todo.title}
       extra={
         <StyledCategoryTag color={makeCategoryTagColor(todo.category)}>
           {categoryConverter(todo.category)}

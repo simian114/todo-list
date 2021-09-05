@@ -8,7 +8,7 @@ export type TodoCategory = 'work' | 'study' | 'life' | 'exercise' | 'etc';
 export type Todo = {
   id: string;
   user: string;
-  text: string;
+  title: string;
   due: Date;
   status: TodoStatus;
   priority: TodoPriority;

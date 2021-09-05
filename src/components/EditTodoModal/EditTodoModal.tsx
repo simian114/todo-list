@@ -19,7 +19,7 @@ interface EditTodoModalProps {
 }
 
 export type EditTodo = {
-  text: string;
+  title: string;
   due: Moment;
   status: TodoStatus;
   priority: TodoPriority;
@@ -46,7 +46,7 @@ const EditTodoModal: React.FC<EditTodoModalProps> = ({
     afterValues: EditTodo,
   ) => {
     setValues(afterValues);
-    if (!afterValues.text) setError(true);
+    if (!afterValues.title) setError(true);
     else setError(false);
   };
 
@@ -78,8 +78,8 @@ const EditTodoModal: React.FC<EditTodoModalProps> = ({
         initialValues={values}
         onValuesChange={handleChange}
       >
-        <Form.Item label="title" name="text">
-          <Input value={values.text} placeholder="빈칸으로 두지 마세염" />
+        <Form.Item label="title" name="title">
+          <Input value={values.title} placeholder="빈칸으로 두지 마세염" />
         </Form.Item>
         {/* TODO: 체크리스트 넣을곳 */}
         {/* <Form.Item label="title" name="check">
