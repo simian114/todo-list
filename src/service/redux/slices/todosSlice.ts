@@ -9,6 +9,7 @@ export type Todo = {
   id: string;
   user: string;
   title: string;
+  description: string;
   due: Date;
   status: TodoStatus;
   priority: TodoPriority;
@@ -17,7 +18,10 @@ export type Todo = {
   updatedAt: Date;
 };
 
-export type CreateTodo = Omit<Todo, 'id' | 'updatedAt' | 'createdAt'>;
+export type CreateTodo = Omit<
+  Todo,
+  'id' | 'updatedAt' | 'createdAt' | 'description'
+>;
 export type UpdateTodo = Partial<Todo>;
 
 export interface TodosState {

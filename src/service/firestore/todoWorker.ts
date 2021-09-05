@@ -65,6 +65,7 @@ class TodoWorker {
     await setDoc(newTodoRef, {
       ...todo,
       id: newTodoRef.id,
+      description: '',
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       ref: doc(db, `users/${this.userId}`),
@@ -99,6 +100,7 @@ export class TodoConverter {
   title: string;
   user: string;
   status: TodoStatus;
+  description: string;
   priority: TodoPriority;
   category: TodoCategory;
   due: Date;
@@ -109,6 +111,7 @@ export class TodoConverter {
     this.user = todo.user;
     this.title = todo.title;
     this.status = todo.status;
+    this.description = todo.description;
     this.category = todo.category;
     this.priority = todo.priority;
     this.due = todo.due.toDate();
