@@ -20,6 +20,7 @@ import {
   statusConverter,
 } from 'utils';
 import EditTodoModal from 'components/EditTodoModal';
+import DetailTodoModal from 'components/DetailTodoModal';
 
 interface TodoItemPRops {
   todo: Todo;
@@ -28,6 +29,7 @@ interface TodoItemPRops {
 const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
   const dispatch = useDispatch();
   const [editModal, setEditModal] = useState<boolean>(false);
+  const [detailModal, setDetailModal] = useState<boolean>(false);
 
   const handleToggleEdit = () => {
     setEditModal(!editModal);
@@ -49,6 +51,9 @@ const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
 
   const handleDelete = () => {
     dispatch(removeTodoRequest({ id: todo.id }));
+  };
+  const handleEditInDetail = () => {
+    setEditModal(true);
   };
 
   const today = getKST();
@@ -76,7 +81,7 @@ const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
         </StyledStatusAction>,
       ]}
     >
-      <StyledContainer>
+      <StyledContainer onClick={() => setDetailModal(true)}>
         <StyledDDay passed={DDay < 0}>D-{Math.abs(DDay)}</StyledDDay>
         <StyledBadge
           count={priorityConverter(todo.priority)}
@@ -92,6 +97,14 @@ const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
           visible={editModal}
           closeModal={handleToggleEdit}
           todo={todo}
+        />
+      )}
+      {detailModal && (
+        <DetailTodoModal
+          visible={detailModal}
+          closeModal={() => setDetailModal(false)}
+          todo={todo}
+          edit={handleEditInDetail}
         />
       )}
     </StyledTodoItem>
@@ -135,6 +148,9 @@ const StyledContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  &: hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledDDay = styled.div<{ passed: boolean }>`
