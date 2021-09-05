@@ -21,6 +21,7 @@ import {
   TodoPriority,
   TodoCategory,
   UpdateTodo,
+  CheckList,
 } from 'service/redux/slices/todosSlice';
 
 class TodoWorker {
@@ -66,6 +67,7 @@ class TodoWorker {
       ...todo,
       id: newTodoRef.id,
       description: '',
+      checkList: [],
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
       ref: doc(db, `users/${this.userId}`),
@@ -101,6 +103,7 @@ export class TodoConverter {
   user: string;
   status: TodoStatus;
   description: string;
+  checkList: CheckList;
   priority: TodoPriority;
   category: TodoCategory;
   due: Date;
@@ -112,6 +115,7 @@ export class TodoConverter {
     this.title = todo.title;
     this.status = todo.status;
     this.description = todo.description;
+    this.checkList = todo.checkList;
     this.category = todo.category;
     this.priority = todo.priority;
     this.due = todo.due.toDate();

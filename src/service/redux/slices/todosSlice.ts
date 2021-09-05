@@ -4,6 +4,7 @@ import { RootState } from 'service/redux/store';
 export type TodoStatus = 'notStarted' | 'onGoing' | 'completed';
 export type TodoPriority = 'low' | 'middle' | 'high';
 export type TodoCategory = 'work' | 'study' | 'life' | 'exercise' | 'etc';
+export type CheckList = Array<{ checked: boolean; content: string }>;
 
 export type Todo = {
   id: string;
@@ -11,6 +12,7 @@ export type Todo = {
   title: string;
   description: string;
   due: Date;
+  checkList: CheckList;
   status: TodoStatus;
   priority: TodoPriority;
   category: TodoCategory;
@@ -20,7 +22,7 @@ export type Todo = {
 
 export type CreateTodo = Omit<
   Todo,
-  'id' | 'updatedAt' | 'createdAt' | 'description'
+  'id' | 'updatedAt' | 'createdAt' | 'description' | 'checkList'
 >;
 export type UpdateTodo = Partial<Todo>;
 
