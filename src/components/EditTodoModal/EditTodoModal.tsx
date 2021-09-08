@@ -12,6 +12,7 @@ import {
 } from 'service/redux/slices/todosSlice';
 import { priorityConverter, statusConverter, categoryConverter } from 'utils';
 
+const { TextArea } = Input;
 interface EditTodoModalProps {
   visible: boolean;
   closeModal: () => void;
@@ -19,8 +20,9 @@ interface EditTodoModalProps {
 }
 
 export type EditTodo = {
-  text: string;
+  title: string;
   due: Moment;
+  description: string;
   status: TodoStatus;
   priority: TodoPriority;
   category: TodoCategory;
@@ -46,7 +48,7 @@ const EditTodoModal: React.FC<EditTodoModalProps> = ({
     afterValues: EditTodo,
   ) => {
     setValues(afterValues);
-    if (!afterValues.text) setError(true);
+    if (!afterValues.title) setError(true);
     else setError(false);
   };
 
@@ -78,13 +80,16 @@ const EditTodoModal: React.FC<EditTodoModalProps> = ({
         initialValues={values}
         onValuesChange={handleChange}
       >
-        <Form.Item label="title" name="text">
-          <Input value={values.text} placeholder="빈칸으로 두지 마세염" />
+        <Form.Item label="제목" name="title">
+          <Input value={values.title} placeholder="빈칸으로 두지 마세염" />
         </Form.Item>
-        {/* TODO: 체크리스트 넣을곳 */}
-        {/* <Form.Item label="title" name="check">
-          <div></div>
-        </Form.Item> */}
+        <Form.Item label="설명" name="description">
+          <TextArea
+            value={values.description}
+            placeholder="설명을 적어주세요"
+            autoSize={{ minRows: 2, maxRows: 2 }}
+          />
+        </Form.Item>
         <Form.Item label="완료 목표일" name="due">
           <DatePicker
             disabledDate={disabledDate}

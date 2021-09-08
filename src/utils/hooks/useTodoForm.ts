@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Moment } from 'moment';
 
 type TodoInitialValue = {
-  text: string;
+  title: string;
   due: Moment;
   status: string;
   category: string;
@@ -12,10 +12,10 @@ type TodoInitialValue = {
 const useTodoForm = (todoInitialValue: TodoInitialValue) => {
   const [values, setValues] = useState(todoInitialValue);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const text = e.target.value;
+    const title = e.target.value;
     setValues({
       ...values,
-      text,
+      title,
     });
   };
 

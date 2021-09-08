@@ -15,7 +15,7 @@ import { getKST, categoryConverter, priorityConverter } from 'utils';
 import { useTodoForm } from 'utils/hooks';
 
 const todoInitialValue = {
-  text: '',
+  title: '',
   due: moment(getKST()),
   status: 'notStarted',
   category: '업무',
@@ -36,7 +36,7 @@ const TodoForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!values.text || values.text.length > 50) {
+    if (!values.title || values.title.length > 50) {
       message.error({
         content: '입력은 최대 100자 까지 가능합니다.',
         duration: 1,
@@ -68,7 +68,7 @@ const TodoForm: React.FC = () => {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledInput
-        value={values.text}
+        value={values.title}
         onChange={handleInputChange}
         placeholder="todo 입력하세요"
       />
@@ -97,7 +97,7 @@ const TodoForm: React.FC = () => {
 function makeCreateTodo(user: string, values: any): CreateTodo {
   return {
     user,
-    text: values.text,
+    title: values.title,
     due: values.due.toDate(),
     status: 'notStarted',
     priority: priorityConverter(values.priority) as TodoPriority,
