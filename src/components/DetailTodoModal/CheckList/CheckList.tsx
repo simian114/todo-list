@@ -1,7 +1,12 @@
 import React from 'react';
-import { Form, Button, Checkbox, Input } from 'antd';
 import { Todo, CheckList as ICheckList } from 'service/redux/slices/todosSlice';
-import styled from 'styled-components';
+import {
+  StyledFormItem,
+  StyledCheckBox,
+  StyledCheckboxContainer,
+  StyledCheckboxInput,
+  StyledButton,
+} from './styles';
 
 interface CheckListProps {
   todo: Todo;
@@ -88,25 +93,3 @@ const CheckList: React.FC<CheckListProps> = ({
 };
 
 export default CheckList;
-
-const StyledFormItem = styled(Form.Item)`
-  margin-bottom: 0;
-`;
-
-const StyledButton = styled(Button)<{ hidden?: boolean }>`
-  ${({ hidden }) => hidden && `display: none;`}
-`;
-
-const StyledCheckBox = styled(Checkbox)<{ hidden?: boolean }>`
-  ${({ hidden }) => hidden && `display: none;`}
-  margin-bottom: 0;
-`;
-
-const StyledCheckboxContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const StyledCheckboxInput = styled(Input)<{ hidden?: boolean }>`
-  ${({ hidden }) => hidden && `display: none;`}
-`;

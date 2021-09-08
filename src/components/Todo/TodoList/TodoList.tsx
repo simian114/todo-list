@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Todo, todosSelector } from 'service/redux/slices/todosSlice';
 import TodoSection from '../TodoSection';
+import { StyledTodoList } from './styles';
 
 const TodoList: React.FC = () => {
   const todos = useSelector(todosSelector).todos;
@@ -49,11 +49,3 @@ const tabList = [
     tab: '높음',
   },
 ];
-
-const StyledTodoList = styled.div`
-  display: flex;
-  justify-content: space-between;
-  ${({ theme }) => theme.tablet`
-    flex-direction: column;
-  `}
-`;

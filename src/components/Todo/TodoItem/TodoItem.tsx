@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Badge, Card, Popconfirm, Tag } from 'antd';
+import { Popconfirm } from 'antd';
 import moment from 'moment';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import {
@@ -12,7 +12,6 @@ import {
   UpdateTodo,
   updateTodoRequest,
 } from 'service/redux/slices/todosSlice';
-import styled from 'styled-components';
 import {
   getKST,
   categoryConverter,
@@ -21,6 +20,14 @@ import {
 } from 'utils';
 import EditTodoModal from 'components/EditTodoModal';
 import DetailTodoModal from 'components/DetailTodoModal';
+import {
+  StyledTodoItem,
+  StyledCategoryTag,
+  StyledStatusAction,
+  StyledContainer,
+  StyledDDay,
+  StyledBadge,
+} from './styles';
 
 interface TodoItemPRops {
   todo: Todo;
@@ -135,49 +142,5 @@ const makeBadgeStatus = (status: TodoStatus) => {
   else if (status === 'notStarted') return 'default';
   else return 'success';
 };
-
-const StyledStatusAction = styled.div`
-  user-select: none;
-`;
-
-const StyledCategoryTag = styled(Tag)`
-  margin: 0;
-`;
-
-const StyledContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  &: hover {
-    cursor: pointer;
-  }
-`;
-
-const StyledDDay = styled.div<{ passed: boolean }>`
-  width: 40px;
-  margin-left: 10px;
-  font-weight: 500;
-  background-color: ${({ passed, theme }) =>
-    passed ? theme.color.lightRed : theme.color.lightGreen};
-  border-radius: 3px;
-  display: flex;
-  justify-content: center;
-  border-radius: 5px;
-`;
-
-const StyledBadge = styled(Badge)<{ backgroundColor?: string }>`
-  ${({ backgroundColor }) =>
-    backgroundColor && `background-color: ${backgroundColor}`}
-`;
-
-const StyledTodoItem = styled(Card)`
-  min-width: 230px;
-  width: 230px;
-  background-colir: pink;
-  margin-bottom: 20px;
-  ${({ theme }) => theme.tablet`
-    max-width: 230px;
-  `}
-`;
 
 export default TodoItem;
