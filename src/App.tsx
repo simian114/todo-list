@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginSuccess, userSelector } from 'service/redux/slices/userSlice';
-import LoginModal from './components/LoginModal/LoginModal';
+import LoginModal from './components/LoginModal';
 import Layout from './components/Layout';
 import TodoForm from 'components/Todo/TodoForm';
 import TodoList from './components/Todo/TodoList';

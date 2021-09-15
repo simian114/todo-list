@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
 import { Todo, updateTodoRequest } from 'service/redux/slices/todosSlice';
-import styled from 'styled-components';
 import { getDate } from 'utils';
-import CheckList from './CheckList/CheckList';
+import CheckList from './CheckList';
 import { useDispatch } from 'react-redux';
+import { StyledTitle, StyledDescription, StyledDate } from './styles';
 
 interface DetailTodoModalProps {
   visible: boolean;
@@ -61,19 +61,3 @@ const DetailTodoModal: React.FC<DetailTodoModalProps> = ({
 };
 
 export default DetailTodoModal;
-
-const StyledDate = styled.p``;
-
-const StyledTitle = styled.h1`
-  font-weight: 600;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #eeeeee;
-  margin-bottom: 10px;
-  font-size: 18px;
-`;
-
-const StyledDescription = styled.p`
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eeeeee;
-  font-size: 16px;
-`;

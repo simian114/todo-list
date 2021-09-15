@@ -1,8 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import DragProvider from 'service/context/DnDContext';
 import { Todo, todosSelector } from 'service/redux/slices/todosSlice';
 import TodoSection from '../TodoSection';
+import { StyledTodoList } from './styles';
 
 const TodoList: React.FC = () => {
   const todos = useSelector(todosSelector).todos;
@@ -15,7 +16,7 @@ const TodoList: React.FC = () => {
     (todo: Todo) => todo.status === 'completed',
   );
   return (
-    <>
+    <DragProvider>
       <StyledTodoList>
         <TodoSection
           title="시작안함"
@@ -25,7 +26,7 @@ const TodoList: React.FC = () => {
         <TodoSection title="진행중" tabList={tabList} todos={onGoingTodos} />
         <TodoSection title="완료" tabList={tabList} todos={completedTodos} />
       </StyledTodoList>
-    </>
+    </DragProvider>
   );
 };
 
@@ -49,11 +50,3 @@ const tabList = [
     tab: '높음',
   },
 ];
-
-const StyledTodoList = styled.div`
-  display: flex;
-  justify-content: space-between;
-  ${({ theme }) => theme.tablet`
-    flex-direction: column;
-  `}
-`;

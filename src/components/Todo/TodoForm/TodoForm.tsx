@@ -1,9 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import moment, { Moment } from 'moment';
-import { Button, DatePicker, Dropdown, Input, Menu, message } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Button, Menu, message } from 'antd';
 import {
   addTodoRequest,
   CreateTodo,
@@ -13,6 +11,15 @@ import {
 import { userSelector } from 'service/redux/slices/userSlice';
 import { getKST, categoryConverter, priorityConverter } from 'utils';
 import { useTodoForm } from 'utils/hooks';
+import {
+  StyledForm,
+  StyledInput,
+  Temp,
+  StyledDatePicker,
+  StyledDropdown,
+  StyledButton,
+  StyledIcon,
+} from './styles';
 
 const todoInitialValue = {
   title: '',
@@ -108,47 +115,5 @@ function makeCreateTodo(user: string, values: any): CreateTodo {
 function disabledDate(current: Moment) {
   return current < moment().startOf('day');
 }
-
-const Temp = styled.div`
-  display: flex;
-`;
-
-const StyledDropdown = styled(Dropdown)`
-  height: 50px;
-  ${({ theme }) => theme.tablet` 
-    flex: 1;
-  `};
-`;
-
-const StyledIcon = styled(PlusOutlined)`
-  font-size: 25px;
-`;
-
-const StyledDatePicker = styled(DatePicker)`
-  width: 180px;
-  ${({ theme }) => theme.tablet` 
-    flex: 1;
-  `};
-`;
-const StyledForm = styled.form`
-  display: flex;
-  width: 100%;
-
-  ${({ theme }) => theme.tablet` 
-    flex-direction: column;
-  `};
-`;
-
-const StyledInput = styled(Input)`
-  height: 50px;
-  font-size: 20px;
-`;
-
-const StyledButton = styled(Button)`
-  height: 50px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-`;
 
 export default TodoForm;

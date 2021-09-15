@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Card, Menu, Dropdown, Button } from 'antd';
+import { Menu, Dropdown, Button } from 'antd';
 import { Todo, TodoPriority } from 'service/redux/slices/todosSlice';
 import { sortTodos } from 'utils';
-import TodoItem from '../TodoItem/TodoItem';
+import TodoItem from '../TodoItem';
+import { StyledTodoSection, StyledContainer } from './styles';
 
 interface TodoSectionProps {
   title: string;
@@ -77,29 +77,3 @@ const filterByPriority = (
   if (priority === 'all') return todos;
   return todos.filter((todo) => todo.priority === priority);
 };
-
-const StyledContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  ${({ theme }) => theme.tablet`
-    // TODO: 그리드로 변경하기 display: grid; 
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-  `}
-  width: 100%;
-`;
-
-const StyledTodoSection = styled(Card)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f5f5f5;
-  ${({ theme }) => theme.tablet`
-    & + & {
-      margin-top: 20px;
-    }
-    align-items: none;
-    margin: auto;
-  `}
-`;

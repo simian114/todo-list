@@ -22,6 +22,7 @@ import {
   TodoCategory,
   UpdateTodo,
   CheckList,
+  ReOrderTodos,
 } from 'service/redux/slices/todosSlice';
 
 class TodoWorker {
@@ -75,6 +76,7 @@ class TodoWorker {
     await updateDoc(this.userRef!, {
       todos: arrayUnion(newTodoRef.id),
     });
+
     return newTodoRef.id;
   };
 
@@ -94,6 +96,22 @@ class TodoWorker {
     });
     const updatedTodo = await getDoc(targetRef);
     return new TodoConverter(updatedTodo.data());
+  };
+
+  reorderTodo = async (reorder: ReOrderTodos) => {
+    const { moveItem, baseItem, direction, status } = reorder;
+    const user = await getDoc(this.userRef!);
+    const todosIds = user.get('todos');
+    const moveTodoIdx = todosIds.findIndex((id: string) => id === moveItem);
+    if (moveTodoIdx === -1) return;
+    const moveTodo = todosIds.splice(moveTodoIdx, 1)[0];
+    let baseTodoIdx = todosIds.findIndex((id: string) => id === baseItem);
+    baseTodoIdx = direction === 'after' ? baseTodoIdx + 1 : baseTodoIdx;
+    todosIds.splice(baseTodoIdx, 0, moveTodo);
+    updateDoc(this.userRef!, { todos: todosIds });
+    const todo = await this.getTodo(moveItem);
+    todo.status = status;
+    this.updateTodo(todo);
   };
 }
 
@@ -123,15 +141,5 @@ export class TodoConverter {
     this.createdAt = todo.createdAt.toDate();
   }
 }
-
-// const todoConverter = {
-//   toFirestore: function (todo: ITodo) {
-//     return todo;
-//   },
-//   fromFirestore: function (snapshot: any) {
-//     const data = snapshot.data();
-//     return new TodoConverter(data);
-//   },
-// };
 
 export default TodoWorker;

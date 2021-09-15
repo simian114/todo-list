@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { takeEvery, put, call, all } from 'redux-saga/effects';
+import { takeEvery, put, call } from 'redux-saga/effects';
 import TodoWorker from 'service/firestore/todoWorker';
 import { loginSuccess } from 'service/redux/slices/userSlice';
 import {
@@ -10,6 +10,8 @@ import {
   getTodosRequest,
   getTodosSuccess,
   removeTodoRequest,
+  ReOrderTodos,
+  reorderTodosRequest,
   Todo,
   UpdateTodo,
   updateTodoRequest,
@@ -53,28 +55,21 @@ function* updateTodo(
   yield call(todoWorker.updateTodo, action.payload.updateTodo);
 }
 
-function* watchGetTodos() {
+function* reorderTodos(
+  action: PayloadAction<{ reorder: ReOrderTodos }>,
+): Generator<any, void, any> {
+  yield call(todoWorker.reorderTodo, action.payload.reorder);
+}
+
+function* watchTodos() {
   yield takeEvery(getTodosRequest.type, getTodos);
   yield takeEvery(loginSuccess.type, getTodos);
-}
-
-function* watchAddTodo() {
   yield takeEvery(addTodoRequest.type, addTodo);
-}
-
-function* watchRemoveTodo() {
   yield takeEvery(removeTodoRequest.type, removeTodo);
-}
-
-function* watchUpdateTodo() {
   yield takeEvery(updateTodoRequest.type, updateTodo);
+  yield takeEvery(reorderTodosRequest.type, reorderTodos);
 }
 
 export default function* watchTodo() {
-  yield all([
-    watchGetTodos(),
-    watchAddTodo(),
-    watchRemoveTodo(),
-    watchUpdateTodo(),
-  ]);
+  yield watchTodos();
 }
