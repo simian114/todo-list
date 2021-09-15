@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Popconfirm } from 'antd';
 import moment from 'moment';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import {
+  EditOutlined,
+  DeleteOutlined,
+  PlusOutlined,
+  CheckOutlined,
+} from '@ant-design/icons';
 import {
   CheckList,
   removeTodoRequest,
@@ -142,7 +147,9 @@ const makeProgressFormate = (checkList: CheckList) => {
     .reduce((accu, curr) => {
       return curr ? accu + 1 : accu;
     }, 0);
-  if (checkList.length === 0) return '추가';
+  if (checkList.length === 0) return <PlusOutlined />;
+  if (checkList.length === checked)
+    return <CheckOutlined twoToneColor="#52c41a" />;
   return `${checked} / ${checkList.length}`;
 };
 
