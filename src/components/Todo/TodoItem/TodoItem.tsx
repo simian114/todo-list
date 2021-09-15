@@ -4,6 +4,7 @@ import { Popconfirm } from 'antd';
 import moment from 'moment';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import {
+  CheckList,
   removeTodoRequest,
   Todo,
   TodoCategory,
@@ -12,12 +13,7 @@ import {
   UpdateTodo,
   updateTodoRequest,
 } from 'service/redux/slices/todosSlice';
-import {
-  getKST,
-  categoryConverter,
-  priorityConverter,
-  statusConverter,
-} from 'utils';
+import { getKST, categoryConverter, priorityConverter } from 'utils';
 import EditTodoModal from 'components/EditTodoModal';
 import DetailTodoModal from 'components/DetailTodoModal';
 import {
@@ -27,6 +23,7 @@ import {
   StyledContainer,
   StyledDDay,
   StyledBadge,
+  StyledProgress,
 } from './styles';
 
 interface TodoItemPRops {
@@ -94,9 +91,11 @@ const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
           count={priorityConverter(todo.priority)}
           style={{ backgroundColor: makePriorityColor(todo.priority) }}
         />
-        <StyledBadge
-          status={makeBadgeStatus(todo.status)}
-          text={statusConverter(todo.status)}
+        <StyledProgress
+          type="circle"
+          width={40}
+          percent={makeProgressPercent(todo.checkList)}
+          format={() => makeProgressFormate(todo.checkList)}
         />
       </StyledContainer>
       {editModal && (
@@ -137,10 +136,24 @@ const makePriorityColor = (priority: TodoPriority): string => {
   else return 'green';
 };
 
-const makeBadgeStatus = (status: TodoStatus) => {
-  if (status === 'onGoing') return 'processing';
-  else if (status === 'notStarted') return 'default';
-  else return 'success';
+const makeProgressFormate = (checkList: CheckList) => {
+  const checked = checkList
+    .map((checkItem) => checkItem.checked)
+    .reduce((accu, curr) => {
+      return curr ? accu + 1 : accu;
+    }, 0);
+  if (checkList.length === 0) return '추가';
+  return `${checked} / ${checkList.length}`;
+};
+
+const makeProgressPercent = (checkList: CheckList) => {
+  const checked = checkList
+    .map((checkItem) => checkItem.checked)
+    .reduce((accu, curr) => {
+      return curr ? accu + 1 : accu;
+    }, 0);
+  if (checkList.length === 0 || checked === 0) return 0;
+  return (checked / checkList.length) * 100;
 };
 
 export default TodoItem;

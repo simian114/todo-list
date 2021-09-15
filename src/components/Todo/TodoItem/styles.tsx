@@ -1,4 +1,4 @@
-import { Badge, Card, Tag } from 'antd';
+import { Badge, Card, Progress, Tag } from 'antd';
 import styled from 'styled-components';
 
 export const StyledStatusAction = styled.div`
@@ -6,6 +6,14 @@ export const StyledStatusAction = styled.div`
 `;
 export const StyledCategoryTag = styled(Tag)`
   margin: 0;
+`;
+export const StyledProgress = styled(Progress)`
+  border-radius: 50%;
+  transition: transform 0.5s;
+  &: hover {
+    background-color: ${({ theme }) => theme.color.alabaster};
+    transform: scale(1.1);
+  }
 `;
 export const StyledContainer = styled.div`
   display: flex;
