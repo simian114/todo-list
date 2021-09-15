@@ -33,7 +33,6 @@ export const StyledBadge = styled(Badge)<{ backgroundColor?: string }>`
 export const StyledTodoItem = styled(Card)`
   min-width: 230px;
   width: 230px;
-  background-colir: pink;
   margin-bottom: 20px;
   ${({ theme }) => theme.tablet`
     max-width: 230px;

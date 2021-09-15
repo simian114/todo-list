@@ -24,4 +24,5 @@ export const StyledTodoSection = styled(Card)`
     align-items: none;
     margin: auto;
   `}
+  height: 100%;
 `;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu, Dropdown, Button } from 'antd';
 import { Todo, TodoPriority } from 'service/redux/slices/todosSlice';
 import { sortTodos } from 'utils';
-import TodoItem from '../TodoItem/TodoItem';
+import TodoItem from '../TodoItem';
 import { StyledTodoSection, StyledContainer } from './styles';
 
 interface TodoSectionProps {
