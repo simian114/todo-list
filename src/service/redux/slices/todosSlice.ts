@@ -26,6 +26,13 @@ export type CreateTodo = Omit<
 >;
 export type UpdateTodo = Partial<Todo>;
 
+export type ReOrderTodos = {
+  moveItem: string;
+  baseItem: string;
+  direction: 'before' | 'after';
+  status: TodoStatus;
+};
+
 export interface TodosState {
   todos: Todo[];
   status: 'idle' | 'loading' | 'failed';
@@ -97,6 +104,21 @@ export const todosSlice = createSlice({
         state.todos[todoIdx] = newTodo;
       }
     },
+    reorderTodosRequest: (
+      state: TodosState,
+      action: PayloadAction<{ reorder: ReOrderTodos }>,
+    ) => {
+      const newTodos = [...state.todos];
+      const { moveItem, baseItem, status, direction } = action.payload.reorder;
+      const moveTodoIdx = newTodos.findIndex((todo) => todo.id === moveItem);
+      if (moveTodoIdx === -1) return;
+      const moveTodo = newTodos.splice(moveTodoIdx, 1)[0];
+      moveTodo.status = status;
+      let baseTodoIdx = newTodos.findIndex((todo) => todo.id === baseItem);
+      baseTodoIdx = direction === 'after' ? baseTodoIdx + 1 : baseTodoIdx;
+      newTodos.splice(baseTodoIdx, 0, moveTodo);
+      state.todos = newTodos;
+    },
   },
 });
 
@@ -109,6 +131,7 @@ export const {
   addTodoFailed,
   removeTodoRequest,
   updateTodoRequest,
+  reorderTodosRequest,
 } = todosSlice.actions;
 
 export const todosSelector = (state: RootState) => state.todos;
