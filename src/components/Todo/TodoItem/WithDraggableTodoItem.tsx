@@ -28,23 +28,16 @@ const WithDraggableTodoItem: React.FC<WithDraggableTodoItemProps> = ({
     e.dataTransfer.setData('id', todo.id);
   };
   const handleDragEnd = () => {
-    dndDispatch({ type: 'SET_HOVER', hover: null });
-    dndDispatch({
-      type: 'SET_POSITION',
-      position: ['none', 'none'],
-    });
+    dndDispatch({ type: 'INIT' });
   };
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     const position = getOverDirection(e);
     dndDispatch({
-      type: 'SET_POSITION',
-      position,
-    });
-    dndDispatch({
-      type: 'SET_HOVER',
+      type: 'HOVER',
       hover: todo.id || null,
+      position,
     });
   };
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -60,11 +53,7 @@ const WithDraggableTodoItem: React.FC<WithDraggableTodoItemProps> = ({
       status: todo.status,
     };
     dispatch(reorderTodosRequest({ reorder }));
-    dndDispatch({ type: 'SET_HOVER', hover: null });
-    dndDispatch({
-      type: 'SET_POSITION',
-      position: ['none', 'none'],
-    });
+    dndDispatch({ type: 'HOVER', hover: null, position: ['none', 'none'] });
   };
 
   // TODO: 현재 브라우저가 태블릿 사이즈를 넘어사면 top, bottom 으로 해야하고

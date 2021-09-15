@@ -2,15 +2,15 @@ import React, { createContext, useReducer, useContext } from 'react';
 import { DragDirection } from 'utils/getOverDirection';
 
 type State = {
+  dragged: string | null;
   hover: string | null;
-  // position: number;
   position: DragDirection[];
 };
 
 type Action =
-  | { type: 'SET_HOVER'; hover: string | null }
-  // | { type: 'SET_POSITION'; position: number };
-  | { type: 'SET_POSITION'; position: DragDirection[] };
+  | { type: 'INIT' }
+  | { type: 'SET_DRAGGED'; dragged: string | null }
+  | { type: 'HOVER'; hover: string | null; position: DragDirection[] };
 
 type DragDispatch = React.Dispatch<Action>;
 
@@ -19,33 +19,26 @@ const DragDispatchContext = createContext<DragDispatch>({} as DragDispatch);
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case 'SET_HOVER':
-      if (state.hover === action.hover) {
-        return state;
-      }
-      return {
-        ...state,
-        hover: action.hover,
-      };
-    case 'SET_POSITION':
-      // if (state.position === action.position) {
+    case 'INIT':
+      return { dragged: null, hover: null, position: ['none', 'none'] };
+    case 'SET_DRAGGED':
+      return { ...state, dragged: action.dragged };
+    case 'HOVER':
+      const newState = { ...state, hover: action.hover };
       if (
         state.position[0] === action.position[0] &&
         state.position[1] === action.position[1]
       ) {
-        return state;
+        return { ...newState };
       }
-      return {
-        ...state,
-        // position: action.position,
-        position: action.position,
-      };
+      return { ...newState, position: action.position };
     default:
       throw new Error('Unhandled action');
   }
 };
 const DragProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
+    dragged: null,
     hover: null,
     position: ['none', 'none'],
   });
