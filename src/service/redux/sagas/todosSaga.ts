@@ -14,7 +14,9 @@ import {
   reorderTodosRequest,
   Todo,
   UpdateTodo,
+  UpdateTodoStatus,
   updateTodoRequest,
+  updateTodoStatusRequest,
 } from '../slices/todosSlice';
 
 const todoWorker = new TodoWorker();
@@ -61,6 +63,18 @@ function* reorderTodos(
   yield call(todoWorker.reorderTodo, action.payload.reorder);
 }
 
+function* updateTodoStatus(
+  action: PayloadAction<{
+    updateTodoStatus: UpdateTodoStatus;
+  }>,
+): Generator<any, void, any> {
+  const { id, status } = action.payload.updateTodoStatus;
+  const todo = yield call(todoWorker.getTodo, id);
+  if (todo.status === status) return;
+  todo.status = status;
+  yield call(todoWorker.updateTodo, todo);
+}
+
 function* watchTodos() {
   yield takeEvery(getTodosRequest.type, getTodos);
   yield takeEvery(loginSuccess.type, getTodos);
@@ -68,6 +82,7 @@ function* watchTodos() {
   yield takeEvery(removeTodoRequest.type, removeTodo);
   yield takeEvery(updateTodoRequest.type, updateTodo);
   yield takeEvery(reorderTodosRequest.type, reorderTodos);
+  yield takeEvery(updateTodoStatusRequest.type, updateTodoStatus);
 }
 
 export default function* watchTodo() {

@@ -9,8 +9,9 @@ type State = {
 
 type Action =
   | { type: 'INIT' }
-  | { type: 'SET_DRAGGED'; dragged: string | null }
-  | { type: 'HOVER'; hover: string | null; position: DragDirection[] };
+  | { type: 'DRAGGED'; dragged: string | null }
+  | { type: 'HOVER'; hover: string | null; position: DragDirection[] }
+  | { type: 'BOX' };
 
 type DragDispatch = React.Dispatch<Action>;
 
@@ -21,7 +22,7 @@ const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'INIT':
       return { dragged: null, hover: null, position: ['none', 'none'] };
-    case 'SET_DRAGGED':
+    case 'DRAGGED':
       return { ...state, dragged: action.dragged };
     case 'HOVER':
       const newState = { ...state, hover: action.hover };
@@ -32,6 +33,8 @@ const reducer = (state: State, action: Action): State => {
         return { ...newState };
       }
       return { ...newState, position: action.position };
+    case 'BOX':
+      return { ...state, hover: null, position: ['none', 'none'] };
     default:
       throw new Error('Unhandled action');
   }

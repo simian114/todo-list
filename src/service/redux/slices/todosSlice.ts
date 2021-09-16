@@ -25,6 +25,7 @@ export type CreateTodo = Omit<
   'id' | 'updatedAt' | 'createdAt' | 'description' | 'checkList'
 >;
 export type UpdateTodo = Partial<Todo>;
+export type UpdateTodoStatus = { id: string; status: TodoStatus };
 
 export type ReOrderTodos = {
   moveItem: string;
@@ -119,6 +120,17 @@ export const todosSlice = createSlice({
       newTodos.splice(baseTodoIdx, 0, moveTodo);
       state.todos = newTodos;
     },
+    updateTodoStatusRequest: (
+      state: TodosState,
+      action: PayloadAction<{ updateTodoStatus: UpdateTodoStatus }>,
+    ) => {
+      const { id, status } = action.payload.updateTodoStatus;
+      const todoIdx = state.todos.findIndex((todo) => todo.id === id);
+      if (todoIdx === -1) return;
+      const todo = state.todos[todoIdx];
+      if (todo.status === status) return;
+      state.todos[todoIdx] = { ...todo, status };
+    },
   },
 });
 
@@ -132,7 +144,10 @@ export const {
   removeTodoRequest,
   updateTodoRequest,
   reorderTodosRequest,
+  updateTodoStatusRequest,
 } = todosSlice.actions;
 
 export const todosSelector = (state: RootState) => state.todos;
+export const todoSelector = (state: RootState, id: string) =>
+  state.todos.find((todo: Todo) => todo.id === id);
 export default todosSlice.reducer;

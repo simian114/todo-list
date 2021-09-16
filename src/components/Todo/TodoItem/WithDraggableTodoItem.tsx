@@ -21,10 +21,11 @@ const WithDraggableTodoItem: React.FC<WithDraggableTodoItemProps> = ({
   // NOTE: drag Provider
   const dispatch = useDispatch();
   const dndDispatch = useDragDispatch();
-  const { position, hover } = useDragState();
+  const { position, hover, dragged } = useDragState();
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    dndDispatch({ type: 'SET_DRAGGED', dragged: todo.id });
+    dndDispatch({ type: 'DRAGGED', dragged: todo.id });
+    e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('id', todo.id);
   };
   const handleDragEnd = () => {
@@ -66,7 +67,7 @@ const WithDraggableTodoItem: React.FC<WithDraggableTodoItemProps> = ({
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       position={position}
-      hover={todo.id === hover}
+      hover={todo.id === hover && dragged !== hover}
     >
       <TodoItem todo={todo} />
     </StyledDraggable>

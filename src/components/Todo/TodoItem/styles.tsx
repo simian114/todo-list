@@ -45,4 +45,5 @@ export const StyledTodoItem = styled(Card)`
   ${({ theme }) => theme.tablet`
     max-width: 230px;
   `}
+  cursor: grab;
 `;

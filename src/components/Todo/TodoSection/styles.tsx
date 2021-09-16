@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Card } from 'antd';
 
 export const StyledContainer = styled.div`
@@ -12,7 +12,8 @@ export const StyledContainer = styled.div`
   `}
   width: 100%;
 `;
-export const StyledTodoSection = styled(Card)`
+
+export const StyledTodoSection = styled(Card)<{ isdragover?: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,4 +26,13 @@ export const StyledTodoSection = styled(Card)`
     margin: auto;
   `}
   height: 100%;
+  z-index: ${({ isdragover }) => (isdragover ? `100` : `inherit`)};
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+  transition: all 0.3s ease-in-out;
+  ${({ isdragover }) =>
+    isdragover &&
+    css`
+      box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
+      transform: translate3d(0px, -1px, 0px);
+    `}
 `;
