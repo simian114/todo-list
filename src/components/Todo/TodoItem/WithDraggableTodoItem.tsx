@@ -25,6 +25,7 @@ const WithDraggableTodoItem: React.FC<WithDraggableTodoItemProps> = ({
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     dndDispatch({ type: 'DRAGGED', dragged: todo.id });
+    e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('id', todo.id);
   };
   const handleDragEnd = () => {
