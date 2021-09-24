@@ -94,8 +94,7 @@ class TodoWorker {
       ...todo,
       updatedAt: serverTimestamp(),
     });
-    const updatedTodo = await getDoc(targetRef);
-    return new TodoConverter(updatedTodo.data());
+    await getDoc(targetRef);
   };
 
   reorderTodo = async (reorder: ReOrderTodos) => {
