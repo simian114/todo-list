@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "prod": "todo-sanam",
+    "dev": "todo-develop-ce4ac",
+    "default": "todo-sanam"
+  },
+  "targets": {}
+}
