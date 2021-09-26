@@ -8,16 +8,7 @@ import {
 } from '../slices/userSlice';
 import { PayloadAction } from '@reduxjs/toolkit';
 import Auth from 'service/auth';
-import {
-  getUser,
-  registerUser,
-  logoutUser,
-} from 'service/firestore/userService';
-
-// NOTE: 참고 블로그
-// LINK: https://kimyang-sun.tistory.com/entry/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EB%A6%AC%EB%8D%95%EC%8A%A4-%ED%88%B4%ED%82%B7-%EB%A6%AC%EB%8D%95%EC%8A%A4-%EC%82%AC%EA%B0%80-React-Redux-Toolkit-Redux-Saga-TypeScript-Nextjs
-// NOTE: auth 인스턴스를 여기에 만드는게 맞는건가?
-const auth = new Auth();
+import { getUser, logoutUser } from 'service/firestore/userService';
 
 // TODO: Generator<> 의 타입지정하기
 // LINK: https://stackoverflow.com/questions/66922379/yield-expression-implicitly-results-in-an-any-type-because-its-containing-ge
@@ -26,12 +17,9 @@ function* login(
   action: PayloadAction<{ provider: string }>,
 ): Generator<any, void, any> {
   try {
-    const response = yield call(auth.login, action.payload.provider);
+    const response = yield call(Auth.login, action.payload.provider);
     const uid = response.user.uid;
-    // NOTE: register
-    // TODO: 'users` 컬렉션에 `users/uid` doc 생성한다.
-    const user = yield call(getUser, uid);
-    if (!user) yield call(registerUser, uid);
+    yield call(getUser, uid);
     yield put(loginSuccess({ uid }));
   } catch (error) {
     console.log(error);
@@ -42,7 +30,6 @@ function* login(
 function* logout(): Generator<any, void, any> {
   logoutUser();
   yield put(clear());
-  // NOTE: todo 를 지운다.
 }
 
 export function* watchLogin() {

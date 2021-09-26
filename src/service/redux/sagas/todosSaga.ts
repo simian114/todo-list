@@ -19,14 +19,12 @@ import {
   updateTodoStatusRequest,
 } from '../slices/todosSlice';
 
-const todoWorker = new TodoWorker();
-
 function* getTodos(
   action: PayloadAction<{ uid: string }>,
 ): Generator<any, void, any> {
   try {
-    todoWorker.init(action.payload.uid);
-    const todos = yield call(todoWorker.getAll);
+    TodoWorker.init(action.payload.uid);
+    const todos = yield call(TodoWorker.getAll);
     yield put(getTodosSuccess({ todos }));
   } catch (error) {
     yield put(getTodosFailed());
@@ -37,8 +35,8 @@ function* addTodo(
   action: PayloadAction<{ todo: Todo }>,
 ): Generator<any, void, any> {
   try {
-    const newTodoId = yield call(todoWorker.addTodo, action.payload.todo);
-    const newTodo = yield call(todoWorker.getTodo, newTodoId);
+    const newTodoId = yield call(TodoWorker.addTodo, action.payload.todo);
+    const newTodo = yield call(TodoWorker.getTodo, newTodoId);
     yield put(addTodoSuccess({ todo: newTodo }));
   } catch (error) {
     yield put(addTodoFailed());
@@ -48,19 +46,19 @@ function* addTodo(
 function* removeTodo(
   action: PayloadAction<{ id: string }>,
 ): Generator<any, any, any> {
-  yield call(todoWorker.removeTodo, action.payload.id);
+  yield call(TodoWorker.removeTodo, action.payload.id);
 }
 
 function* updateTodo(
   action: PayloadAction<{ updateTodo: UpdateTodo }>,
 ): Generator<any, any, any> {
-  yield call(todoWorker.updateTodo, action.payload.updateTodo);
+  yield call(TodoWorker.updateTodo, action.payload.updateTodo);
 }
 
 function* reorderTodos(
   action: PayloadAction<{ reorder: ReOrderTodos }>,
 ): Generator<any, void, any> {
-  yield call(todoWorker.reorderTodo, action.payload.reorder);
+  yield call(TodoWorker.reorderTodo, action.payload.reorder);
 }
 
 function* updateTodoStatus(
@@ -69,10 +67,10 @@ function* updateTodoStatus(
   }>,
 ): Generator<any, void, any> {
   const { id, status } = action.payload.updateTodoStatus;
-  const todo = yield call(todoWorker.getTodo, id);
+  const todo = yield call(TodoWorker.getTodo, id);
   if (todo.status === status) return;
   todo.status = status;
-  yield call(todoWorker.updateTodo, todo);
+  yield call(TodoWorker.updateTodo, todo);
 }
 
 function* watchTodos() {

@@ -1,4 +1,4 @@
-import { db, functions } from 'firebase';
+import { db } from 'firebase';
 import {
   doc,
   collection,
@@ -24,8 +24,6 @@ import {
   CheckList,
   ReOrderTodos,
 } from 'service/redux/slices/todosSlice';
-
-const Logger = functions.httpsCallable('todoLogger');
 
 class TodoWorker {
   private todosRef: CollectionReference<DocumentData>;
@@ -61,7 +59,6 @@ class TodoWorker {
     const todosIds = user.get('todos');
     const res = await this.readIds(todosIds);
     this.todos = res;
-    Logger({ method: 'read', user: this.userId });
     return res;
   };
 
@@ -79,7 +76,6 @@ class TodoWorker {
     await updateDoc(this.userRef!, {
       todos: arrayUnion(newTodoRef.id),
     });
-    Logger({ method: 'create', user: this.userId });
     return newTodoRef.id;
   };
 
@@ -89,7 +85,6 @@ class TodoWorker {
     await updateDoc(this.userRef!, {
       todos: arrayRemove(todoId),
     });
-    Logger({ method: 'delete', user: this.userId });
   };
 
   updateTodo = async (todo: UpdateTodo) => {
@@ -99,7 +94,6 @@ class TodoWorker {
       updatedAt: serverTimestamp(),
     });
     await getDoc(targetRef);
-    Logger({ method: 'update', user: this.userId });
   };
 
   reorderTodo = async (reorder: ReOrderTodos) => {
@@ -146,4 +140,4 @@ export class TodoConverter {
   }
 }
 
-export default TodoWorker;
+export default new TodoWorker();
