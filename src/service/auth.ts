@@ -27,9 +27,16 @@ class Auth implements IAuth {
   }
   onAuthChange = () => {
     firebaseApp.auth().onAuthStateChanged((user) => {
-      console.log('user login or logout', user);
+      if (user) {
+        // NOTE: 로그인 되었을 때 해야하는 동작을 등록해준다.
+      } else {
+        // NOTE: 로그아웃 되었을 때 해야하는 동작을 등록해준다.
+      }
     });
   };
 }
 
-export default Auth;
+const auth = new Auth();
+auth.onAuthChange();
+
+export default auth;

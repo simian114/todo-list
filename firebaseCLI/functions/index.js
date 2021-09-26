@@ -1,24 +1,67 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
 
-exports.todoLogger = functions.https.onCall((data, context) => {
-  // Autocomplete a user's search term
-  // functions.logger.info(`${data.user} has`);
-  const { method, user } = data;
-  const options = {
-    create: () => `${user} creates new Todo`,
-    read: () => `${user} reads todos`,
-    update: () => `${user} updates todo`,
-    delete: () => `${user} deletes todo`,
-  };
-  functions.logger.info(options[method]());
+const collections = functions.firestore.document('/{collection}/{id}');
+const activities = admin.firestore().collection('activities');
+
+exports.createLog = collections.onCreate((snap, context) => {
+  const { collection, id } = context.params;
+  if (collection === 'todos') {
+    const todo = snap.data();
+    return activities.add({
+      text: `${todo.user} creates new todo(${id})`,
+      time: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  } else if (collection === 'users') {
+    return activities.add({
+      text: `NEW COMMER!! HIS NAME IS...${id}!!`,
+      time: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  }
 });
 
-exports.userLogger = functions.https.onCall((data, context) => {
+exports.updateLog = collections.onUpdate((change, context) => {
+  const { collection, id } = context.params;
+  if (collection === 'todos') {
+    const todo = change.before.data();
+    return activities.add({
+      text: `${todo.user} updates todo(${id})`,
+      time: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  } else if (collection === 'users') {
+    return activities.add({
+      text: `${id} has changed his info`,
+      time: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  }
+});
+
+exports.deleteLog = collections.onDelete((change, context) => {
+  const { collection, id } = context.params;
+  if (collection === 'todos') {
+    const todo = change.before.data();
+    return activities.add({
+      text: `${todo.user} deletes todo(${id})`,
+      time: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  } else if (collection === 'users') {
+    return activities.add({
+      text: `${id} has gone...`,
+      time: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  }
+});
+
+exports.userAuthLog = functions.https.onCall((data, context) => {
   const { user, type } = data;
   const options = {
-    signup: () => `HAS NEW COMMER. HIS NAME IS... ${user}!!!`,
     login: () => `${user} login!`,
     logout: () => `${user} logout!`,
   };
-  functions.logger.info(options[type]());
+  activities.add({
+    text: options[type](),
+    time: admin.firestore.FieldValue.serverTimestamp(),
+  });
+  return null;
 });
