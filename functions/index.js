@@ -15,7 +15,7 @@ exports.createLog = collections.onCreate((snap, context) => {
     });
   } else if (collection === 'users') {
     return activities.add({
-      text: `NEW COMMER!! HIS NAME IS...${id}!!`,
+      text: `NEW COMMER!! HIS NAME IS... ${id}!!`,
       time: admin.firestore.FieldValue.serverTimestamp(),
     });
   }
