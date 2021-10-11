@@ -31,4 +31,5 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run:
+          firebase use dev --token $FIREBASE_TOKEN --non-interactive
           firebase deploy --token $FIREBASE_TOKEN --non-interactive
