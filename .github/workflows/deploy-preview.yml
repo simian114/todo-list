@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name:  Run use firebase dev
+      - name:  Install dependencies
         run: |
           npm install
           npm run build
