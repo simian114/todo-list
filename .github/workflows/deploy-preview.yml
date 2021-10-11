@@ -19,7 +19,6 @@ jobs:
           npm install
           npm install -g firebase-tools
           npm run build
-          npm run use-dev
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
