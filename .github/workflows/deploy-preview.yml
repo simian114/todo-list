@@ -1,33 +1,29 @@
-name: Deploy to Preview Channel
-
+name: Deploy to Develop Channel
 on:
   pull_request:
-    branches: [ develop ]
-    # Optionally configure to run only for specific files. For example:
-    # paths:
-    # - "website/**"
+    branches: [ master ]
 env:
-  REACT_APP_API_KEY: ${{ secrets.DEV_REACT_APP_API_KEY}}
-  REACT_APP_AUTH_DOMAIN: ${{ secrets.DEV_REACT_APP_AUTH_DOMAIN}}
-  REACT_APP_PROJECT_ID: ${{ secrets.DEV_REACT_APP_PROJECT_ID}}
-  REACT_APP_STORAGE_BUCKET: ${{ secrets.DEV_REACT_APP_STORAGE_BUCKET}}
-  REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.DEV_REACT_APP_MESSAGING_SENDER_ID}}
-  REACT_APP_APP_ID: ${{ secrets.DEV_REACT_APP_APP_ID}}
-  REACT_APP_MEASUREMENT_ID: ${{ secrets.DEV_REACT_APP_MEASUREMENT_ID}}
-  REACT_APP_DATABASE_URL: ${{ secrets.DEV_REACT_APP_DATABASE_URL}}
+  REACT_APP_API_KEY: ${{ secrets.DEV_REACT_APP_API_KEY }}
+  REACT_APP_AUTH_DOMAIN: ${{ secrets.DEV_REACT_APP_AUTH_DOMAIN }}
+  REACT_APP_PROJECT_ID: ${{ secrets.DEV_REACT_APP_PROJECT_ID }}
+  REACT_APP_STORAGE_BUCKET: ${{ secrets.DEV_REACT_APP_STORAGE_BUCKET }}
+  REACT_APP_MESSAGING_SENDER_ID: ${{ secrets.DEV_REACT_APP_MESSAGING_SENDER_ID }}
+  REACT_APP_APP_ID: ${{ secrets.DEV_REACT_APP_APP_ID }}
+  REACT_APP_MEASUREMENT_ID: ${{ secrets.DEV_REACT_APP_MEASUREMENT_ID }}
+  REACT_APP_DATABASE_URL: ${{ secrets.DEV_REACT_APP_DATABASE_URL }}
   FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 jobs:
   build_and_preview:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # Add any build steps herce. For example:
-      # - run: npm ci && npm run build
       - name:  Run use firebase dev
         run: |
           npm install
           npm run build
           npm install -g firebase-tools
+      - name: Firebase functions install
+        run: |
           cd functions
           npm install
       - name: Firebase use project
