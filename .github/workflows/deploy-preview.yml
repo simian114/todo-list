@@ -6,22 +6,29 @@ on:
     # Optionally configure to run only for specific files. For example:
     # paths:
     # - "website/**"
-
+env:
+  REACT_APP_API_KEY= ${{ secrets.DEV_REACT_APP_API_KEY}}
+  REACT_APP_AUTH_DOMAIN= ${{ secrets.DEV_REACT_APP_AUTH_DOMAIN}}
+  REACT_APP_PROJECT_ID= ${{ secrets.DEV_REACT_APP_PROJECT_ID}}
+  REACT_APP_STORAGE_BUCKET= ${{ secrets.DEV_REACT_APP_STORAGE_BUCKET}}
+  REACT_APP_MESSAGING_SENDER_ID= ${{ secrets.DEV_REACT_APP_MESSAGING_SENDER_ID}}
+  REACT_APP_APP_ID= ${{ secrets.DEV_REACT_APP_APP_ID}}
+  REACT_APP_MEASUREMENT_ID= ${{ secrets.DEV_REACT_APP_MEASUREMENT_ID}}
+  REACT_APP_DATABASE_URL= ${{ secrets.DEV_REACT_APP_DATABASE_URL}}
 jobs:
   build_and_preview:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      # Add any build steps here. For example:
+      # Add any build steps herce. For example:
       # - run: npm ci && npm run build
       - name:  Run use firebase dev
         run: |
           npm install
-          npm install -g firebase-tools
           npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
-          expires: 30d
-          projectId: todo-develop-ce4ac
+      - name: Deploy DEV Server
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run:
+          npm install -g firebase-tools
+          firebase deploy --token $FIREBASE_TOKEN --non-interactive
