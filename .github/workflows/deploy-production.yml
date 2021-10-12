@@ -1,4 +1,4 @@
-name: Deploy to Develop Channel
+name: Deploy to Live Channel
 on:
   push:
     branches: [ master ]
