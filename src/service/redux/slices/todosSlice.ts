@@ -63,10 +63,7 @@ export const todosSlice = createSlice({
       state.status = 'idle';
       state.errorMessage = '';
     },
-    getTodosRequest: (
-      state: TodosState,
-      action: PayloadAction<{ uid: string }>,
-    ) => {
+    getTodosRequest: (state: TodosState) => {
       state.status = 'loading';
     },
     getTodosSuccess: (
