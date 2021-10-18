@@ -1,10 +1,15 @@
+<p align="middle"><img src="https://github.com/simian114/todo-list/actions/workflows/deploy-production.yml/badge.svg" /></p>
 <p align="middle" >
   <img width="200px;" src="https://raw.githubusercontent.com/simian114/gitbook/master/.gitbook/assets/todo.png"/>
 </p>
-<h1 align="middle"><a href="https://todo-sanam.web.app/" target="_blank">투두리스트</a></h1>
+<h1 align="middle"><a href="https://todo-sanam.web.app/" target="_blank">투두리스트</a></h1> 
 <p align="middle">쉽고 간편한 그러나 강력한 투두리스트!!</p>
-
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)![Ant-Design](https://img.shields.io/badge/-AntDesign-%230170FE?style=for-the-badge&logo=ant-design&logoColor=white)![github actions](https://github.com/simian114/todo-list/actions/workflows/deploy-production/badge.svg)
+<p align="middle">
+  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" />
+  <img src="https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase" />
+  <img src="https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white" />
+  <img src="https://img.shields.io/badge/-AntDesign-%230170FE?style=for-the-badge&logo=ant-design&logoColor=white" />
+</p>
 
 # 개요
 
@@ -22,8 +27,8 @@
 # 실행방법
 1. 배포되어있는 사이트를 이용할 경우
 
-   - [링크](https://todo-sanam.web.app/) 에 접속합니다. 이후 소셜 계정으로 간편하게 회원가입 & 로그인을 합니다.
-   - **투두**를 **만들고**, **실천**합니다.
+   1. [링크](https://todo-sanam.web.app/) 에 접속합니다. 소셜 계정으로 간편하게 회원가입 & 로그인을 합니다.
+   2. **투두**를 **만들고**, **실천**합니다.
 
 2. 개인사이트로 배포할 경우 (파이어베이스 셋업이 필요합니다.)
    1. `git clone https://github.com/simian114/wanted-preOnBoarding-project10.git`
@@ -63,5 +68,5 @@
 
 # 기여 방법
 
-풀리퀘스트 또는 [ISSUE](https://github.com/simian114/todo-list/issues)를 작성해주세요!
+[풀리퀘스트](https://github.com/simian114/todo-list/pulls) 또는 [ISSUE](https://github.com/simian114/todo-list/issues)를 작성해주세요!
 
