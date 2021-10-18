@@ -5,7 +5,6 @@ import { loginSuccess } from 'service/redux/slices/userSlice';
 import {
   addTodoFailed,
   addTodoRequest,
-  addTodoSuccess,
   getTodosFailed,
   getTodosRequest,
   getTodosSuccess,
@@ -23,7 +22,6 @@ function* getTodos(
   action: PayloadAction<{ uid: string }>,
 ): Generator<any, void, any> {
   try {
-    TodoWorker.init(action.payload.uid);
     const todos = yield call(TodoWorker.getAll);
     yield put(getTodosSuccess({ todos }));
   } catch (error) {
@@ -35,9 +33,7 @@ function* addTodo(
   action: PayloadAction<{ todo: Todo }>,
 ): Generator<any, void, any> {
   try {
-    const newTodoId = yield call(TodoWorker.addTodo, action.payload.todo);
-    const newTodo = yield call(TodoWorker.getTodo, newTodoId);
-    yield put(addTodoSuccess({ todo: newTodo }));
+    yield call(TodoWorker.addTodo, action.payload.todo);
   } catch (error) {
     yield put(addTodoFailed());
   }

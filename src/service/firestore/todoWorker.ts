@@ -12,6 +12,7 @@ import {
   CollectionReference,
   deleteDoc,
   arrayRemove,
+  onSnapshot,
 } from 'firebase/firestore';
 
 import {
@@ -40,6 +41,13 @@ class TodoWorker {
   init(userId: string) {
     this.userId = userId;
     this.userRef = doc(db, `users/${this.userId}`);
+  }
+
+  onWatch(cb: any) {
+    onSnapshot(doc(db, 'users', this.userId), async () => {
+      const todos = await this.getAll();
+      cb(todos);
+    });
   }
 
   private readIds = async (ids: string[]) => {
