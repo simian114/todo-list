@@ -3,7 +3,6 @@ import { takeEvery, put, call } from 'redux-saga/effects';
 import TodoWorker from 'service/firestore/todoWorker';
 import { loginSuccess } from 'service/redux/slices/userSlice';
 import {
-  addTodoFailed,
   addTodoRequest,
   getTodosFailed,
   getTodosRequest,
@@ -16,6 +15,7 @@ import {
   UpdateTodoStatus,
   updateTodoRequest,
   updateTodoStatusRequest,
+  setTodosError,
 } from '../slices/todosSlice';
 
 function* getTodos(
@@ -35,7 +35,9 @@ function* addTodo(
   try {
     yield call(TodoWorker.addTodo, action.payload.todo);
   } catch (error) {
-    yield put(addTodoFailed());
+    yield put(
+      setTodosError({ errorMessage: 'todo 추가에 에러가 발생했습니다.' }),
+    );
   }
 }
 
