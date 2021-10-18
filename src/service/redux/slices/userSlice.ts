@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import todoWorker from 'service/firestore/todoWorker';
 import { RootState } from 'service/redux/store';
 import { localStorageHelper } from 'utils';
 
@@ -32,6 +33,7 @@ export const userSlice = createSlice({
       action: PayloadAction<{ uid: string }>,
     ) => {
       localStorageHelper.setItem('todo-user', action.payload.uid);
+      todoWorker.init(action.payload.uid);
       state.status = 'idle';
       state.uid = action.payload.uid;
     },

@@ -37,21 +37,33 @@ export type ReOrderTodos = {
 export interface TodosState {
   todos: Todo[];
   status: 'idle' | 'loading' | 'failed';
+  errorMessage: string;
 }
 
 const initialState: any = {
   todos: [],
   status: 'idle',
+  errorMessage: '',
 };
+
+// erorrMessage 를 관리해줘야함
 
 export const todosSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    getTodosRequest: (
+    setTodosError: (
       state: TodosState,
-      action: PayloadAction<{ uid: string }>,
+      action: PayloadAction<{ errorMessage: string }>,
     ) => {
+      state.status = 'failed';
+      state.errorMessage = action.payload.errorMessage;
+    },
+    resetStatus: (state: TodosState) => {
+      state.status = 'idle';
+      state.errorMessage = '';
+    },
+    getTodosRequest: (state: TodosState) => {
       state.status = 'loading';
     },
     getTodosSuccess: (
@@ -76,9 +88,6 @@ export const todosSlice = createSlice({
     ) => {
       state.todos.push(action.payload.todo);
       state.status = 'idle';
-    },
-    addTodoFailed: (state: TodosState) => {
-      state.status = 'failed';
     },
     removeTodoRequest: (
       state: TodosState,
@@ -135,12 +144,13 @@ export const todosSlice = createSlice({
 });
 
 export const {
+  setTodosError,
+  resetStatus,
   getTodosRequest,
   getTodosSuccess,
   getTodosFailed,
   addTodoRequest,
   addTodoSuccess,
-  addTodoFailed,
   removeTodoRequest,
   updateTodoRequest,
   reorderTodosRequest,
@@ -150,4 +160,5 @@ export const {
 export const todosSelector = (state: RootState) => state.todos;
 export const todoSelector = (state: RootState, id: string) =>
   state.todos.find((todo: Todo) => todo.id === id);
+
 export default todosSlice.reducer;

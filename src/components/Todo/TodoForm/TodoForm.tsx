@@ -43,9 +43,10 @@ const TodoForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!values.title || values.title.length > 50) {
+    // NOTE: 비동기 에러가 아니기 때문에 굳이 dispatch 를 사용하지는 않는다.
+    if (!checkInputValidity(values.title)) {
       message.error({
-        content: '입력은 최대 100자 까지 가능합니다.',
+        content: '입력은 최소 1자부터 최대 50자 까지 가능합니다.',
         duration: 1,
       });
       return;
@@ -99,6 +100,10 @@ const TodoForm: React.FC = () => {
       </Temp>
     </StyledForm>
   );
+};
+
+const checkInputValidity = (title: string) => {
+  return !(!title || title.length > 50);
 };
 
 function makeCreateTodo(user: string, values: any): CreateTodo {
