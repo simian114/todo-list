@@ -1,0 +1,17 @@
+name: 'Chromatic Deployment'
+
+# Event for the workflow
+on: push
+
+# List of jobs
+jobs:
+  test:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v1
+      - run: |
+          yarn
+          yarn build-storybook
+          yarn chromatic --project-token=${{ secrets.CHROMATIC_PROJECT_TOKEN }}

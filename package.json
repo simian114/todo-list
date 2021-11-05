@@ -72,6 +72,7 @@
     "@storybook/react": "^6.3.12",
     "@typescript-eslint/eslint-plugin": "^4.29.3",
     "@typescript-eslint/parser": "^4.29.3",
+    "chromatic": "^6.0.5",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard-with-typescript": "^20.0.0",
