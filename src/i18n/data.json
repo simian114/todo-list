@@ -42,6 +42,45 @@
 			"ko-KR": "🎈 즐거운 토요일! 신나는 주말입니다."
 		}
 	],
+	"todoSection": [
+		{
+			"key": "custom",
+			"en": "custom",
+			"ko-KR": "사용자지정"
+		},
+		{
+			"key": "latest",
+			"en": "latest",
+			"ko-KR": "최신순"
+		},
+		{
+			"key": "oldest",
+			"en": "oldest",
+			"ko-KR": "오래된순"
+		},
+		{
+			"key": "priority",
+			"en": "priority",
+			"ko-KR": "중요도"
+		},
+		{
+			"key": "due",
+			"en": "due",
+			"ko-KR": "마감임박"
+		}
+	],
+	"todoform": [
+		{
+			"key": "placeholder",
+			"en": "write todo",
+			"ko-KR": "todo를 입력해주세요"
+		},
+		{
+			"key": "validity",
+			"en": "It can be a minimum of 1 character and a maximum of 50 characters.",
+			"ko-KR": "최소 1자부터 최대 50자 까지 가능합니다."
+		}
+	],
 	"category": [
 		{
 			"key": "work",
@@ -113,18 +152,6 @@
 			"key": "logout",
 			"en": "logout",
 			"ko-KR": "로그아웃"
-		}
-	],
-	"todoform": [
-		{
-			"key": "placeholder",
-			"en": "write todo",
-			"ko-KR": "todo를 입력해주세요"
-		},
-		{
-			"key": "validity",
-			"en": "It can be a minimum of 1 character and a maximum of 50 characters.",
-			"ko-KR": "최소 1자부터 최대 50자 까지 가능합니다."
 		}
 	]
 }
