@@ -1,4 +1,10 @@
 {
+	"languages": [
+		{
+			"key": "value",
+			"languages": "en, ko-KR"
+		}
+	],
 	"header": [
 		{
 			"key": "message_0",
@@ -36,6 +42,50 @@
 			"ko-KR": "🎈 즐거운 토요일! 신나는 주말입니다."
 		}
 	],
+	"category": [
+		{
+			"key": "work",
+			"en": "work",
+			"ko-KR": "업무"
+		},
+		{
+			"key": "study",
+			"en": "study",
+			"ko-KR": "공부"
+		},
+		{
+			"key": "life",
+			"en": "life",
+			"ko-KR": "일상"
+		},
+		{
+			"key": "exercise",
+			"en": "exercise",
+			"ko-KR": "운동"
+		},
+		{
+			"key": "etc",
+			"en": "etc",
+			"ko-KR": "기타"
+		}
+	],
+	"priority": [
+		{
+			"key": "high",
+			"en": "high",
+			"ko-KR": "높음"
+		},
+		{
+			"key": "middle",
+			"en": "middle",
+			"ko-KR": "중간"
+		},
+		{
+			"key": "low",
+			"en": "low",
+			"ko-KR": "낮음"
+		}
+	],
 	"auth": [
 		{
 			"key": "login",
@@ -48,10 +98,16 @@
 			"ko-KR": "로그아웃"
 		}
 	],
-	"languages": [
+	"todoform": [
 		{
-			"key": "value",
-			"languages": "en, ko-KR"
+			"key": "placeholder",
+			"en": "write todo",
+			"ko-KR": "todo를 입력해주세요"
+		},
+		{
+			"key": "validity",
+			"en": "It can be a minimum of 1 character and a maximum of 50 characters.",
+			"ko-KR": "최소 1자부터 최대 50자 까지 가능합니다."
 		}
 	]
 }
