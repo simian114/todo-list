@@ -18,9 +18,10 @@ import {
   UpdateTodo,
   updateTodoRequest,
 } from 'service/redux/slices/todosSlice';
-import { getKST, categoryConverter, priorityConverter } from 'utils';
+import { getKST } from 'utils';
 import EditTodoModal from 'components/EditTodoModal';
 import DetailTodoModal from 'components/DetailTodoModal';
+import { useTranslation } from 'react-i18next';
 import {
   StyledTodoItem,
   StyledCategoryTag,
@@ -39,7 +40,7 @@ const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
   const dispatch = useDispatch();
   const [editModal, setEditModal] = useState<boolean>(false);
   const [detailModal, setDetailModal] = useState<boolean>(false);
-
+  const { t } = useTranslation();
   const handleToggleEdit = () => {
     setEditModal(!editModal);
   };
@@ -72,29 +73,32 @@ const TodoItem: React.FC<TodoItemPRops> = ({ todo }) => {
       title={todo.title}
       extra={
         <StyledCategoryTag color={makeCategoryTagColor(todo.category)}>
-          {categoryConverter(todo.category)}
+          {t(`category.${todo.category}`)}
         </StyledCategoryTag>
       }
       actions={[
         <EditOutlined onClick={handleToggleEdit} />,
         <Popconfirm
-          title="정말로 삭제하시겠습니까?"
-          okText="Yes"
-          cancelText="No"
+          title={t(`todoItem.popTitle`)}
+          okText={t(`todoItem.yes`)}
+          cancelText={t(`todoItem.no`)}
           onConfirm={handleDelete}
         >
           <DeleteOutlined />
         </Popconfirm>,
         <StyledStatusAction onClick={handleClickChangeStatus}>
-          {makeStatusActionDesc(todo.status)}
+          {t(`todoItem.${todo.status}`)}
         </StyledStatusAction>,
       ]}
     >
       <StyledContainer onClick={() => setDetailModal(true)}>
         <StyledDDay passed={DDay < 0}>D-{Math.abs(DDay)}</StyledDDay>
         <StyledBadge
-          count={priorityConverter(todo.priority)}
-          style={{ backgroundColor: makePriorityColor(todo.priority) }}
+          count={t(`priority.${todo.priority}`)}
+          style={{
+            backgroundColor: makePriorityColor(todo.priority),
+            width: '55px',
+          }}
         />
         <StyledProgress
           type="circle"
@@ -130,11 +134,6 @@ const makeCategoryTagColor = (category: TodoCategory): string => {
   else return 'red';
 };
 
-const makeStatusActionDesc = (status: TodoStatus): string => {
-  if (status === 'notStarted') return '시작';
-  else return '토글';
-};
-
 const makePriorityColor = (priority: TodoPriority): string => {
   if (priority === 'high') return 'red';
   else if (priority === 'middle') return 'blue';
@@ -144,10 +143,8 @@ const makePriorityColor = (priority: TodoPriority): string => {
 const makeProgressFormate = (checkList: CheckList) => {
   const checked = checkList
     .map((checkItem) => checkItem.checked)
-    .reduce((accu, curr) => {
-      return curr ? accu + 1 : accu;
-    }, 0);
-  if (checkList.length === 0) return <PlusOutlined />;
+    .reduce((accu, curr) => (curr ? accu + 1 : accu), 0);
+  if (!checkList.length) return <PlusOutlined />;
   if (checkList.length === checked)
     return <CheckOutlined twoToneColor="#52c41a" />;
   return `${checked} / ${checkList.length}`;
@@ -156,10 +153,8 @@ const makeProgressFormate = (checkList: CheckList) => {
 const makeProgressPercent = (checkList: CheckList) => {
   const checked = checkList
     .map((checkItem) => checkItem.checked)
-    .reduce((accu, curr) => {
-      return curr ? accu + 1 : accu;
-    }, 0);
-  if (checkList.length === 0 || checked === 0) return 0;
+    .reduce((accu, curr) => (curr ? accu + 1 : accu), 0);
+  if (!checkList.length || !checked) return 0;
   return (checked / checkList.length) * 100;
 };
 
