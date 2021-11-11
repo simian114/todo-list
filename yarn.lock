@@ -2468,6 +2468,13 @@
   dependencies:
     "@types/react" "^16"
 
+"@types/react-i18next@^8.1.0":
+  "integrity" "sha512-d4xhcjX5b3roNMObRNMfb1HinHQlQLPo8xlDj60dnHeeAw2bBymR2cy/l1giJpHzo/ZFgSvgVUvIWr4kCrenCg=="
+  "resolved" "https://registry.npmjs.org/@types/react-i18next/-/react-i18next-8.1.0.tgz"
+  "version" "8.1.0"
+  dependencies:
+    "react-i18next" "*"
+
 "@types/react-redux@^7.1.16", "@types/react-redux@^7.1.7":
   "integrity" "sha512-9iwAsPyJ9DLTRH+OFeIrm9cAbIj1i2ANL3sKQFATqnPWRbg+jEFXyZOKHiQK/N86pNRXbb4HRxAxo0SIX1XwzQ=="
   "resolved" "https://registry.npmjs.org/@types/react-redux/-/react-redux-7.1.18.tgz"
@@ -10857,7 +10864,7 @@
   "resolved" "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.9.tgz"
   "version" "6.0.9"
 
-"react-i18next@^11.14.1":
+"react-i18next@*", "react-i18next@^11.14.1":
   "integrity" "sha512-2M4E3G6fZHMirSfIY6F9704J5wMaqsfrrixueIDkQzbD80txtQ2RHSOe79aRqrgEnAl9MdcH0kK4PmvkbVLhAA=="
   "resolved" "https://registry.npmjs.org/react-i18next/-/react-i18next-11.14.1.tgz"
   "version" "11.14.1"

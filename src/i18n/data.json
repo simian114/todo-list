@@ -101,6 +101,123 @@
 			"ko-KR": "아니오"
 		}
 	],
+	"Modal": [
+		{
+			"key": "LoginTitle",
+			"en": "Please log in",
+			"ko-KR": "로그인해주세요"
+		},
+		{
+			"key": "EditTitle",
+			"en": "Edit Todo",
+			"ko-KR": "Todo 수정"
+		},
+		{
+			"key": "EditOkText",
+			"en": "Edit",
+			"ko-KR": "수정"
+		},
+		{
+			"key": "EditCancleText",
+			"en": "Close",
+			"ko-KR": "닫기"
+		},
+		{
+			"key": "EditFormTitle",
+			"en": "Title",
+			"ko-KR": "제목"
+		},
+		{
+			"key": "EditFormTitlePlaceholder",
+			"en": "Do not leave blank",
+			"ko-KR": "빈칸으로 두지 마세요"
+		},
+		{
+			"key": "EditFormDesc",
+			"en": "Description",
+			"ko-KR": "설명"
+		},
+		{
+			"key": "EditFormDescPlaceholder",
+			"en": "Please write a description",
+			"ko-KR": "설명을 적어주세요"
+		},
+		{
+			"key": "EditFormTargetDate",
+			"en": "Target Date",
+			"ko-KR": "완료 목표일"
+		},
+		{
+			"key": "EditFormStatus",
+			"en": "Status",
+			"ko-KR": "진행상태"
+		},
+		{
+			"key": "EditFormPriority",
+			"en": "Priority",
+			"ko-KR": "우선순위"
+		},
+		{
+			"key": "EditFormCategory",
+			"en": "Category",
+			"ko-KR": "카테고리"
+		},
+		{
+			"key": "EditFormErrorMessage",
+			"en": "There must be no blank input!",
+			"ko-KR": "빈칸이 있어서는 안됩니다!"
+		},
+		{
+			"key": "DetailOkText",
+			"en": "Apply",
+			"ko-KR": "적용"
+		},
+		{
+			"key": "DetailCancelText",
+			"en": "Close",
+			"ko-KR": "취소"
+		},
+		{
+			"key": "DetailCreatedAt",
+			"en": "Created at",
+			"ko-KR": "생성 날짜"
+		},
+		{
+			"key": "DetailUpdatedAt",
+			"en": "Updated at",
+			"ko-KR": "목표 날짜"
+		},
+		{
+			"key": "CheckListTitle",
+			"en": "Check List",
+			"ko-KR": "체크리스트"
+		},
+		{
+			"key": "CheckItemPlaceholder",
+			"en": "Please enter content :)",
+			"ko-KR": "내용을 넣어주세요 :)"
+		},
+		{
+			"key": "CheckListEdit",
+			"en": "Edit",
+			"ko-KR": "수정"
+		},
+		{
+			"key": "CheckListItemDelete",
+			"en": "Delete",
+			"ko-KR": "삭제"
+		},
+		{
+			"key": "CheckListClose",
+			"en": "Close",
+			"ko-KR": "닫기"
+		},
+		{
+			"key": "CheckListAdd",
+			"en": "Add",
+			"ko-KR": "추가"
+		}
+	],
 	"todoform": [
 		{
 			"key": "placeholder",

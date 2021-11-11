@@ -11,6 +11,7 @@ import {
   UpdateTodo,
 } from 'service/redux/slices/todosSlice';
 import { priorityConverter, statusConverter, categoryConverter } from 'utils';
+import { useTranslation, TFunction } from 'react-i18next';
 
 const { TextArea } = Input;
 interface EditTodoModalProps {
@@ -33,6 +34,7 @@ const EditTodoModal: React.FC<EditTodoModalProps> = ({
   closeModal,
   todo,
 }) => {
+  const { t, i18n } = useTranslation();
   const [values, setValues] = useState<Partial<EditTodo> | null>(null);
   const [error, setError] = useState<boolean>(false);
   const dispatch = useDispatch();
@@ -68,9 +70,9 @@ const EditTodoModal: React.FC<EditTodoModalProps> = ({
     <Modal
       visible={visible}
       centered
-      title="TODO 수정"
-      okText="수정"
-      cancelText="닫기"
+      title={t('Modal.EditTitle')}
+      okText={t('Modal.EditOkText')}
+      cancelText={t('Modal.EditCancleText')}
       onCancel={closeModal}
       onOk={handleUpdate}
     >
@@ -80,45 +82,79 @@ const EditTodoModal: React.FC<EditTodoModalProps> = ({
         initialValues={values}
         onValuesChange={handleChange}
       >
-        <Form.Item label="제목" name="title">
-          <Input value={values.title} placeholder="빈칸으로 두지 마세염" />
+        <Form.Item label={t('Modal.EditFormTitle')} name="title">
+          <Input
+            value={values.title}
+            placeholder={t('Modal.EditFormTitlePlaceholder')}
+          />
         </Form.Item>
-        <Form.Item label="설명" name="description">
+        <Form.Item label={t('Modal.EditFormDesc')} name="description">
           <TextArea
             value={values.description}
-            placeholder="설명을 적어주세요"
+            placeholder={t('Modal.EditFormDescPlaceholder')}
             autoSize={{ minRows: 2, maxRows: 2 }}
           />
         </Form.Item>
-        <Form.Item label="완료 목표일" name="due">
+        <Form.Item label={t('Modal.EditFormTargetDate')} name="due">
           <DatePicker
             disabledDate={disabledDate}
             value={moment(values.due)}
             style={{ width: '100%' }}
           />
         </Form.Item>
-        <Form.Item label="진행상태" name="status">
-          {RadioGroups('status')}
+
+        <Form.Item label={t('Modal.EditFormStatus')} name="status">
+          {RadioGroups('status', t, i18n.language)}
         </Form.Item>
-        <Form.Item label="우선순위" name="priority">
-          {RadioGroups('priority')}
+
+        <Form.Item label={t('Modal.EditFormPriority')} name="priority">
+          {RadioGroups('priority', t, i18n.language)}
         </Form.Item>
-        <Form.Item label="카테고리" name="category">
-          {RadioGroups('category')}
+
+        <Form.Item label={t('Modal.EditFormCategory')} name="category">
+          {RadioGroups('category', t, i18n.language)}
         </Form.Item>
       </Form>
       {error && (
-        <Alert type="error" message="빈칸이 있어서는 안됩니다!" showIcon />
+        <Alert
+          type="error"
+          message={t('Modal.EditFormErrorMessage')}
+          showIcon
+        />
       )}
     </Modal>
   );
 };
 
-const RadioGroups = (type: 'status' | 'priority' | 'category') => {
-  const status = [['시작안함', '진행중', '완료'], statusConverter];
-  const priority = [['낮음', '중간', '높음'], priorityConverter];
+const RadioGroups = (
+  type: 'status' | 'priority' | 'category',
+  t: TFunction<'translation', undefined>,
+  lng: string,
+) => {
+  const status = [
+    [
+      t(`status.notStarted`, { lng }),
+      t(`status.onGoing`, { lng }),
+      t(`status.completed`, { lng }),
+    ],
+    statusConverter,
+  ];
+  const priority = [
+    [
+      t(`priority.low`, { lng }),
+      t(`priority.middle`, { lng }),
+      t(`priority.high`, { lng }),
+    ],
+    priorityConverter,
+  ];
   const category = [
-    ['업무', '공부', '일상', '운동', '기타'],
+    [
+      t(`category.work`, { lng }),
+      t(`category.study`, { lng }),
+      t(`category.life`, { lng }),
+      t(`category.exercise`, { lng }),
+      t(`category.etc`, { lng }),
+    ],
     categoryConverter,
   ];
   const options = { status, priority, category };
@@ -126,7 +162,7 @@ const RadioGroups = (type: 'status' | 'priority' | 'category') => {
   return (
     <Radio.Group>
       {maker[0].map((data) => (
-        <Radio.Button key={data} value={maker[1](data)}>
+        <Radio.Button key={data} value={lng === 'en' ? data : maker[1](data)}>
           {data}
         </Radio.Button>
       ))}
