@@ -86,6 +86,23 @@
 			"ko-KR": "낮음"
 		}
 	],
+	"status": [
+		{
+			"key": "notStarted",
+			"en": "notStarted",
+			"ko-KR": "시작안함"
+		},
+		{
+			"key": "onGoing",
+			"en": "onGoing",
+			"ko-KR": "진행중"
+		},
+		{
+			"key": "completed",
+			"en": "completed",
+			"ko-KR": "완료"
+		}
+	],
 	"auth": [
 		{
 			"key": "login",

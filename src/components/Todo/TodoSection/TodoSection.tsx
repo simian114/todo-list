@@ -7,7 +7,7 @@ import {
   UpdateTodoStatus,
   updateTodoStatusRequest,
 } from 'service/redux/slices/todosSlice';
-import { sortTodos, statusConverter } from 'utils';
+import { sortTodos } from 'utils';
 import TodoItem from '../TodoItem';
 import { StyledTodoSection, StyledContainer } from './styles';
 import { useDragDispatch, useDragState } from 'service/context/DnDContext';
@@ -28,7 +28,8 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
   const dndDispatch = useDragDispatch();
   const { dragged } = useDragState();
 
-  const status: TodoStatus = statusConverter(title) as TodoStatus;
+  // const status: TodoStatus = statusConverter(title) as TodoStatus;
+  const status = title as TodoStatus;
 
   const handleChangeOrder = ({ key }: { key: string }) => {
     setOrderKey(key);
@@ -45,8 +46,8 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
 
   const handleDrageLeave = () => {
     setIsDragOver(false);
-    // console.log('leave!');
   };
+
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
