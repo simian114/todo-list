@@ -1,0 +1,57 @@
+{
+	"header": [
+		{
+			"key": "message_0",
+			"en": "😎 SUNDAY! HAPPY NEW WEEK!",
+			"ko-KR": "😎 즐거운 일요일! 새롭게 한 주를 시작하세요."
+		},
+		{
+			"key": "message_1",
+			"en": "🙋‍♂️ MONDAY! CHEER UP!",
+			"ko-KR": "🙋‍♂️ 오늘은 월요일! 힘내세요!."
+		},
+		{
+			"key": "message_2",
+			"en": "🎧 TUSEDAY! LISTEN TO YOUR FAVORITE MUSIC",
+			"ko-KR": "🎧 오늘은 화요일! 좋아하는 음악을 들어보세요."
+		},
+		{
+			"key": "message_3",
+			"en": "👀 WENSDAY! CULMINATON OF WEEK",
+			"ko-KR": "👀 오늘은 수요일! 한 주의 정점입니다."
+		},
+		{
+			"key": "message_4",
+			"en": "🙆‍♂️ THURSDAY! WEEKEND IN JUST TWO DAYS",
+			"ko-KR": "🙆‍♂️ 오늘은 목요일! 이틀만 버티면 주말입니다."
+		},
+		{
+			"key": "message_5",
+			"en": "💪 FRIDAY! WEEKEND JUST ONE MORE DAY",
+			"ko-KR": "💪 오늘은 금요일! 하루만 버티면 주말입니다."
+		},
+		{
+			"key": "message_6",
+			"en": "🎈 SATURDAY! EXCTING WEEKEND",
+			"ko-KR": "🎈 즐거운 토요일! 신나는 주말입니다."
+		}
+	],
+	"auth": [
+		{
+			"key": "login",
+			"en": "login",
+			"ko-KR": "로그인"
+		},
+		{
+			"key": "logout",
+			"en": "logout",
+			"ko-KR": "로그아웃"
+		}
+	],
+	"languages": [
+		{
+			"key": "value",
+			"languages": "en, ko-KR"
+		}
+	]
+}
