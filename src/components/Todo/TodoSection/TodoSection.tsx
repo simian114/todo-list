@@ -7,11 +7,12 @@ import {
   UpdateTodoStatus,
   updateTodoStatusRequest,
 } from 'service/redux/slices/todosSlice';
-import { sortTodos, statusConverter } from 'utils';
+import { sortTodos } from 'utils';
 import TodoItem from '../TodoItem';
 import { StyledTodoSection, StyledContainer } from './styles';
 import { useDragDispatch, useDragState } from 'service/context/DnDContext';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 interface TodoSectionProps {
   title: string;
@@ -20,7 +21,8 @@ interface TodoSectionProps {
 }
 
 const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
-  const [orderKey, setOrderKey] = useState<string>('사용자지정');
+  const { t } = useTranslation();
+  const [orderKey, setOrderKey] = useState<string>('custom');
   const [activeTab, setActiveTab] = useState<TodoPriority | 'all'>('all');
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
 
@@ -28,7 +30,7 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
   const dndDispatch = useDragDispatch();
   const { dragged } = useDragState();
 
-  const status: TodoStatus = statusConverter(title) as TodoStatus;
+  const status = title as TodoStatus;
 
   const handleChangeOrder = ({ key }: { key: string }) => {
     setOrderKey(key);
@@ -37,7 +39,6 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
   const handleTabChange = (key: TodoPriority | 'all'): void => {
     setActiveTab(key);
   };
-
   const orderedAndFilteredTodos = filterByPriority(
     activeTab,
     sortTodos(todos, orderKey),
@@ -45,8 +46,8 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
 
   const handleDrageLeave = () => {
     setIsDragOver(false);
-    // console.log('leave!');
   };
+
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -62,9 +63,20 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
     dispatch(updateTodoStatusRequest({ updateTodoStatus }));
     dndDispatch({ type: 'INIT' });
   };
+
+  const menu = (
+    <Menu onClick={handleChangeOrder}>
+      <Menu.Item key="custom">{t('todoSection.custom')}</Menu.Item>
+      <Menu.Item key="latest">{t('todoSection.latest')}</Menu.Item>
+      <Menu.Item key="oldest">{t('todoSection.oldest')}</Menu.Item>
+      <Menu.Item key="priority">{t('todoSection.priority')}</Menu.Item>
+      <Menu.Item key="due">{t('todoSection.due')}</Menu.Item>
+    </Menu>
+  );
+
   return (
     <StyledTodoSection
-      title={title}
+      title={t(`status.${title}`)}
       tabList={tabList}
       activeTabKey={activeTab}
       onTabChange={(key) => handleTabChange(key as TodoPriority | 'all')}
@@ -73,12 +85,8 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
       onDrop={handleDrop}
       isdragover={isDragOver ? 1 : 0}
       extra={
-        <Dropdown
-          overlay={dropdownMenu(handleChangeOrder)}
-          placement="bottomLeft"
-          arrow
-        >
-          <Button>{orderKey}</Button>
+        <Dropdown overlay={menu} placement="bottomLeft" arrow>
+          <Button>{t(`todoSection.${orderKey}`)}</Button>
         </Dropdown>
       }
       style={{ width: '100%' }}
@@ -93,20 +101,6 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
 };
 
 export default TodoSection;
-
-const dropdownMenu = (
-  handler: ({ key }: { key: string }) => void,
-): JSX.Element => {
-  return (
-    <Menu onClick={handler}>
-      <Menu.Item key="사용자지정">사용자지정</Menu.Item>
-      <Menu.Item key="최신순">최신순</Menu.Item>
-      <Menu.Item key="오래된순">오래된순</Menu.Item>
-      <Menu.Item key="중요도">중요도</Menu.Item>
-      <Menu.Item key="마감임박">마감임박</Menu.Item>
-    </Menu>
-  );
-};
 
 const filterByPriority = (
   priority: TodoPriority | 'all',

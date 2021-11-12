@@ -68,6 +68,8 @@
 - 1.1.0
   - 파이어베이스 웹소켓 연결
   - 비동기 작업 에러 핸들링
+- 2.0.0
+  - 다국어 처리([구글 시트로 자동화](https://docs.google.com/spreadsheets/d/1ibfhixhqNP1Dk2YK8nuHGxYUyUwgopu8gewaYo6px1c/edit#gid=1355704333))
 
 # 기여 방법
 

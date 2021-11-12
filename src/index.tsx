@@ -8,6 +8,7 @@ import GlobalStyles from './assets/styles/GlobalStyles';
 import { ThemeProvider } from 'styled-components';
 import { Theme } from 'assets/styles/Theme';
 import { media } from 'assets/styles/media';
+import './i18n/i18n';
 
 const ModalContext = React.createContext<string>('modal');
 

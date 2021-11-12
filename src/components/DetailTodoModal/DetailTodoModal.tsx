@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
 import { Todo, updateTodoRequest } from 'service/redux/slices/todosSlice';
-import { getDate } from 'utils';
 import CheckList from './CheckList';
 import { useDispatch } from 'react-redux';
 import { StyledTitle, StyledDescription, StyledDate } from './styles';
+import { useTranslation } from 'react-i18next';
 
 interface DetailTodoModalProps {
   visible: boolean;
@@ -19,6 +19,7 @@ const DetailTodoModal: React.FC<DetailTodoModalProps> = ({
   closeModal,
   edit,
 }) => {
+  const { t, i18n } = useTranslation();
   const [isEdit, setIsEdit] = useState(false);
   const [todo, setTodo] = useState({ ...todoProp });
   const dispatch = useDispatch();
@@ -28,13 +29,12 @@ const DetailTodoModal: React.FC<DetailTodoModalProps> = ({
     dispatch(updateTodoRequest({ updateTodo }));
     closeModal();
   };
-
   return (
     <Modal
       visible={visible}
-      okText="적용"
+      okText={t('Modal.DetailOkText')}
       onOk={updateCheckList}
-      cancelText="닫기"
+      cancelText={t('Modal.DetailCancelText')}
       onCancel={closeModal}
     >
       <StyledTitle>{todo.title}</StyledTitle>
@@ -52,9 +52,11 @@ const DetailTodoModal: React.FC<DetailTodoModalProps> = ({
       />
       <br />
       <StyledDate>
-        생성 날짜: {getDate(todo.createdAt)}
+        {t('Modal.DetailCreatedAt')}:{' '}
+        {todo.createdAt.toLocaleString(i18n.language)}
         <br />
-        목표 날짜: {getDate(todo.updatedAt)}
+        {t('Modal.DetailUpdatedAt')}:{' '}
+        {todo.updatedAt.toLocaleString(i18n.language)}
       </StyledDate>
     </Modal>
   );

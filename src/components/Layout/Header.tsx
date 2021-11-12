@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'antd';
 import { userSelector, logoutRequest } from 'service/redux/slices/userSlice';
-import { getDate, getKST } from 'utils';
+import { getKST } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 const Header: React.FC = () => {
   const user = useSelector(userSelector).uid;
@@ -11,21 +12,29 @@ const Header: React.FC = () => {
   const handleLogout = () => {
     dispatch(logoutRequest());
   };
+  const { t, i18n } = useTranslation();
   const today = getKST();
-  const dateString = getDate(today, DATE_OPTION);
-  const todayMessage = makeTodayMessage(today);
+  const dateString = today.toLocaleString(i18n.language, DATE_OPTION);
 
+  const todayMessage = t(`header.message_${today.getDay()}`);
+  const toggleLanguage = () => {
+    // console.log(i18n.language);
+    if (i18n.language === 'en') return i18n.changeLanguage('ko-KR');
+    return i18n.changeLanguage('en');
+  };
+  // const toggle
   return (
     <StyledHeader>
       <Left>
         <StyledLogo>TodoList</StyledLogo>
         {dateString}
       </Left>
+      <Button onClick={toggleLanguage}> {i18n.language}</Button>
       <Right>
         <Message>{todayMessage}</Message>
         {!!user && (
           <StyledLogoutButton onClick={handleLogout}>
-            로그아웃
+            {t('auth.logout')}
           </StyledLogoutButton>
         )}
       </Right>
@@ -79,19 +88,3 @@ export const DATE_OPTION: Intl.DateTimeFormatOptions = {
   month: 'long',
   day: 'numeric',
 };
-
-const makeTodayMessage = (today: Date) => {
-  const idx = today.getDay();
-  const msg = `${message[idx][0]}  ${message[idx][1]} ${message[idx][2]}`;
-  return msg;
-};
-
-const message = [
-  ['😎', '즐거운 일요일!', '일주일을 마무리해보세요.'],
-  ['🙋‍♂️', '오늘은 월요일!', '새롭게 한 주를 시작하세요.'],
-  ['🎧', '오늘은 화요일!', '좋아하는 음악을 들어보세요.'],
-  ['👀', '오늘은 수요일!', '한 주의 정점입니다.'],
-  ['🙆‍♂️', '오늘은 목요일!', '이틀만 버티면 주말입니다.'],
-  ['💪', '오늘은 금요일!', '하루만 버티면 주말입니다.'],
-  ['🎈', '즐거운 토요일!', '신나는 주말입니다.'],
-];

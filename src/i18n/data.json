@@ -1,0 +1,306 @@
+{
+	"languages": [
+		{
+			"key": "value",
+			"languages": "en, ko-KR"
+		}
+	],
+	"header": [
+		{
+			"key": "message_0",
+			"en": "😎 SUNDAY! HAPPY NEW WEEK!",
+			"ko-KR": "😎 즐거운 일요일! 새롭게 한 주를 시작하세요."
+		},
+		{
+			"key": "message_1",
+			"en": "🙋‍♂️ MONDAY! CHEER UP!",
+			"ko-KR": "🙋‍♂️ 오늘은 월요일! 힘내세요!."
+		},
+		{
+			"key": "message_2",
+			"en": "🎧 TUSEDAY! LISTEN TO YOUR FAVORITE MUSIC",
+			"ko-KR": "🎧 오늘은 화요일! 좋아하는 음악을 들어보세요."
+		},
+		{
+			"key": "message_3",
+			"en": "👀 WENSDAY! CULMINATON OF WEEK",
+			"ko-KR": "👀 오늘은 수요일! 한 주의 정점입니다."
+		},
+		{
+			"key": "message_4",
+			"en": "🙆‍♂️ THURSDAY! WEEKEND IN JUST TWO DAYS",
+			"ko-KR": "🙆‍♂️ 오늘은 목요일! 이틀만 버티면 주말입니다."
+		},
+		{
+			"key": "message_5",
+			"en": "💪 FRIDAY! WEEKEND JUST ONE MORE DAY",
+			"ko-KR": "💪 오늘은 금요일! 하루만 버티면 주말입니다."
+		},
+		{
+			"key": "message_6",
+			"en": "🎈 SATURDAY! EXCTING WEEKEND",
+			"ko-KR": "🎈 즐거운 토요일! 신나는 주말입니다."
+		}
+	],
+	"todoSection": [
+		{
+			"key": "custom",
+			"en": "custom",
+			"ko-KR": "사용자지정"
+		},
+		{
+			"key": "latest",
+			"en": "latest",
+			"ko-KR": "최신순"
+		},
+		{
+			"key": "oldest",
+			"en": "oldest",
+			"ko-KR": "오래된순"
+		},
+		{
+			"key": "priority",
+			"en": "priority",
+			"ko-KR": "중요도"
+		},
+		{
+			"key": "due",
+			"en": "due",
+			"ko-KR": "마감임박"
+		}
+	],
+	"todoItem": [
+		{
+			"key": "notStarted",
+			"en": "start",
+			"ko-KR": "시작"
+		},
+		{
+			"key": "onGoing",
+			"en": "complete",
+			"ko-KR": "완료"
+		},
+		{
+			"key": "completed",
+			"en": "cancle",
+			"ko-KR": "취소"
+		},
+		{
+			"key": "popTitle",
+			"en": "Are you sure you want to delete it?",
+			"ko-KR": "정말로 삭제하시겠습니까?"
+		},
+		{
+			"key": "yes",
+			"en": "yes",
+			"ko-KR": "예"
+		},
+		{
+			"key": "no",
+			"en": "no",
+			"ko-KR": "아니오"
+		}
+	],
+	"Modal": [
+		{
+			"key": "LoginTitle",
+			"en": "Please log in",
+			"ko-KR": "로그인해주세요"
+		},
+		{
+			"key": "EditTitle",
+			"en": "Edit Todo",
+			"ko-KR": "Todo 수정"
+		},
+		{
+			"key": "EditOkText",
+			"en": "Edit",
+			"ko-KR": "수정"
+		},
+		{
+			"key": "EditCancleText",
+			"en": "Close",
+			"ko-KR": "닫기"
+		},
+		{
+			"key": "EditFormTitle",
+			"en": "Title",
+			"ko-KR": "제목"
+		},
+		{
+			"key": "EditFormTitlePlaceholder",
+			"en": "Do not leave blank",
+			"ko-KR": "빈칸으로 두지 마세요"
+		},
+		{
+			"key": "EditFormDesc",
+			"en": "Description",
+			"ko-KR": "설명"
+		},
+		{
+			"key": "EditFormDescPlaceholder",
+			"en": "Please write a description",
+			"ko-KR": "설명을 적어주세요"
+		},
+		{
+			"key": "EditFormTargetDate",
+			"en": "Target Date",
+			"ko-KR": "완료 목표일"
+		},
+		{
+			"key": "EditFormStatus",
+			"en": "Status",
+			"ko-KR": "진행상태"
+		},
+		{
+			"key": "EditFormPriority",
+			"en": "Priority",
+			"ko-KR": "우선순위"
+		},
+		{
+			"key": "EditFormCategory",
+			"en": "Category",
+			"ko-KR": "카테고리"
+		},
+		{
+			"key": "EditFormErrorMessage",
+			"en": "There must be no blank input!",
+			"ko-KR": "빈칸이 있어서는 안됩니다!"
+		},
+		{
+			"key": "DetailOkText",
+			"en": "Apply",
+			"ko-KR": "적용"
+		},
+		{
+			"key": "DetailCancelText",
+			"en": "Close",
+			"ko-KR": "취소"
+		},
+		{
+			"key": "DetailCreatedAt",
+			"en": "Created at",
+			"ko-KR": "생성 날짜"
+		},
+		{
+			"key": "DetailUpdatedAt",
+			"en": "Updated at",
+			"ko-KR": "목표 날짜"
+		},
+		{
+			"key": "CheckListTitle",
+			"en": "Check List",
+			"ko-KR": "체크리스트"
+		},
+		{
+			"key": "CheckItemPlaceholder",
+			"en": "Please enter content :)",
+			"ko-KR": "내용을 넣어주세요 :)"
+		},
+		{
+			"key": "CheckListEdit",
+			"en": "Edit",
+			"ko-KR": "수정"
+		},
+		{
+			"key": "CheckListItemDelete",
+			"en": "Delete",
+			"ko-KR": "삭제"
+		},
+		{
+			"key": "CheckListClose",
+			"en": "Close",
+			"ko-KR": "닫기"
+		},
+		{
+			"key": "CheckListAdd",
+			"en": "Add",
+			"ko-KR": "추가"
+		}
+	],
+	"todoform": [
+		{
+			"key": "placeholder",
+			"en": "write todo",
+			"ko-KR": "todo를 입력해주세요"
+		},
+		{
+			"key": "validity",
+			"en": "It can be a minimum of 1 character and a maximum of 50 characters.",
+			"ko-KR": "최소 1자부터 최대 50자 까지 가능합니다."
+		}
+	],
+	"category": [
+		{
+			"key": "work",
+			"en": "work",
+			"ko-KR": "업무"
+		},
+		{
+			"key": "study",
+			"en": "study",
+			"ko-KR": "공부"
+		},
+		{
+			"key": "life",
+			"en": "life",
+			"ko-KR": "일상"
+		},
+		{
+			"key": "exercise",
+			"en": "exercise",
+			"ko-KR": "운동"
+		},
+		{
+			"key": "etc",
+			"en": "etc",
+			"ko-KR": "기타"
+		}
+	],
+	"priority": [
+		{
+			"key": "high",
+			"en": "high",
+			"ko-KR": "높음"
+		},
+		{
+			"key": "middle",
+			"en": "middle",
+			"ko-KR": "중간"
+		},
+		{
+			"key": "low",
+			"en": "low",
+			"ko-KR": "낮음"
+		}
+	],
+	"status": [
+		{
+			"key": "notStarted",
+			"en": "notStarted",
+			"ko-KR": "시작안함"
+		},
+		{
+			"key": "onGoing",
+			"en": "onGoing",
+			"ko-KR": "진행중"
+		},
+		{
+			"key": "completed",
+			"en": "completed",
+			"ko-KR": "완료"
+		}
+	],
+	"auth": [
+		{
+			"key": "login",
+			"en": "login",
+			"ko-KR": "로그인"
+		},
+		{
+			"key": "logout",
+			"en": "logout",
+			"ko-KR": "로그아웃"
+		}
+	]
+}

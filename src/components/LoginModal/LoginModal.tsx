@@ -11,20 +11,19 @@ import {
   userSelector,
 } from 'service/redux/slices/userSlice';
 import { LOGIN_STATUS, PROVIDERS } from 'utils/constants';
+import { useTranslation } from 'react-i18next';
 
 interface LoginModalProps {
   visible: boolean;
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ visible }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const loadingStatus = useSelector(userSelector).status;
 
   const handleLogin = (provider: string) => {
-    if (loadingStatus === LOGIN_STATUS.LOADING) {
-      console.log('이미 진행중...');
-      return;
-    }
+    if (loadingStatus === LOGIN_STATUS.LOADING) return;
     dispatch(loginRequest({ provider }));
   };
 
@@ -51,7 +50,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ visible }) => {
     <Modal
       visible={visible}
       centered
-      title="로그인. 부탁."
+      title={t('Modal.LoginTitle')}
       closable={false}
       okButtonProps={{ style: { display: 'none' } }}
       cancelButtonProps={{ style: { display: 'none' } }}

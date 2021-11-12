@@ -1,5 +1,6 @@
 import React from 'react';
 import { Todo, CheckList as ICheckList } from 'service/redux/slices/todosSlice';
+import { useTranslation } from 'react-i18next';
 import {
   StyledFormItem,
   StyledCheckBox,
@@ -20,6 +21,7 @@ const CheckList: React.FC<CheckListProps> = ({
   handleEditToggle,
   setTodo,
 }) => {
+  const { t } = useTranslation();
   const makeNewCheckList = () => todo.checkList.map((item) => ({ ...item }));
   const setTodoCheckList = (checkList: ICheckList) => {
     setTodo({
@@ -51,7 +53,7 @@ const CheckList: React.FC<CheckListProps> = ({
 
   return (
     <div>
-      <h2>체크리스트</h2>
+      <h2>{t('Modal.CheckListTitle')}</h2>
       {todo.checkList.map((check, index) => (
         <StyledFormItem key={index}>
           <StyledCheckBox
@@ -60,7 +62,7 @@ const CheckList: React.FC<CheckListProps> = ({
             name={`${index}`}
             onChange={handleCheckboxToggle}
           >
-            {check.content || '내용을 넣어주세요 :)'}
+            {check.content || t('Modal.CheckItemPlaceholder')}
           </StyledCheckBox>
           <StyledCheckboxContainer>
             <StyledCheckboxInput
@@ -68,25 +70,25 @@ const CheckList: React.FC<CheckListProps> = ({
               hidden={!isEdit}
               value={check.content}
               onChange={handleChange}
-              placeholder="내용을 넣어주세요 :)"
+              placeholder={t('Modal.CheckItemPlaceholder')}
             />
             <StyledButton
               hidden={!isEdit}
               onClick={() => handleDeleteCheckbox(index)}
             >
-              삭제
+              {t('Modal.CheckListItemDelete')}
             </StyledButton>
           </StyledCheckboxContainer>
         </StyledFormItem>
       ))}
       <StyledButton hidden={isEdit} size="small" onClick={handleEditToggle}>
-        수정
+        {t('Modal.CheckListEdit')}
       </StyledButton>
       <StyledButton hidden={!isEdit} size="middle" onClick={handleEditToggle}>
-        닫기
+        {t('Modal.CheckListClose')}
       </StyledButton>
       <StyledButton hidden={!isEdit} size="middle" onClick={handleAddCheckbox}>
-        추가
+        {t('Modal.CheckListAdd')}
       </StyledButton>
     </div>
   );
