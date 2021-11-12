@@ -17,12 +17,19 @@ const Header: React.FC = () => {
   const dateString = today.toLocaleString(i18n.language, DATE_OPTION);
 
   const todayMessage = t(`header.message_${today.getDay()}`);
+  const toggleLanguage = () => {
+    // console.log(i18n.language);
+    if (i18n.language === 'en') return i18n.changeLanguage('ko-KR');
+    return i18n.changeLanguage('en');
+  };
+  // const toggle
   return (
     <StyledHeader>
       <Left>
         <StyledLogo>TodoList</StyledLogo>
         {dateString}
       </Left>
+      <Button onClick={toggleLanguage}> {i18n.language}</Button>
       <Right>
         <Message>{todayMessage}</Message>
         {!!user && (

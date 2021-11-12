@@ -7,7 +7,7 @@ import {
   UpdateTodoStatus,
   updateTodoStatusRequest,
 } from 'service/redux/slices/todosSlice';
-import { sortTodos, orderConverter } from 'utils';
+import { sortTodos } from 'utils';
 import TodoItem from '../TodoItem';
 import { StyledTodoSection, StyledContainer } from './styles';
 import { useDragDispatch, useDragState } from 'service/context/DnDContext';
@@ -21,8 +21,8 @@ interface TodoSectionProps {
 }
 
 const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
-  const { t, i18n } = useTranslation();
-  const [orderKey, setOrderKey] = useState<string>(t('todoSection.custom'));
+  const { t } = useTranslation();
+  const [orderKey, setOrderKey] = useState<string>('custom');
   const [activeTab, setActiveTab] = useState<TodoPriority | 'all'>('all');
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
 
@@ -39,13 +39,9 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
   const handleTabChange = (key: TodoPriority | 'all'): void => {
     setActiveTab(key);
   };
-
   const orderedAndFilteredTodos = filterByPriority(
     activeTab,
-    sortTodos(
-      todos,
-      i18n.language === 'en' ? orderKey : orderConverter(orderKey),
-    ),
+    sortTodos(todos, orderKey),
   );
 
   const handleDrageLeave = () => {
@@ -80,7 +76,7 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
 
   return (
     <StyledTodoSection
-      title={title}
+      title={t(`status.${title}`)}
       tabList={tabList}
       activeTabKey={activeTab}
       onTabChange={(key) => handleTabChange(key as TodoPriority | 'all')}
@@ -90,7 +86,7 @@ const TodoSection: React.FC<TodoSectionProps> = ({ title, tabList, todos }) => {
       isdragover={isDragOver ? 1 : 0}
       extra={
         <Dropdown overlay={menu} placement="bottomLeft" arrow>
-          <Button>{orderKey}</Button>
+          <Button>{t(`todoSection.${orderKey}`)}</Button>
         </Dropdown>
       }
       style={{ width: '100%' }}

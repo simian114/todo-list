@@ -26,7 +26,8 @@ const TodoList: React.FC = () => {
         {statusList.map((status) => (
           <TodoSection
             key={status}
-            title={t(`status.${status}`)}
+            // title={t(`status.${status}`)}
+            title={status}
             tabList={tabList}
             todos={todos.filter((todo: Todo) => todo.status === status)}
           ></TodoSection>

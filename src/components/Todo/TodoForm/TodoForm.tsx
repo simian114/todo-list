@@ -21,14 +21,12 @@ import {
 // TODO: 전부 Styles 로 가져오고 Styles.form 와 같은 방법으로 리팩토링하자!
 // import * as Styles from './styles';
 
-const todoInitialValue = (category: string, priority: string) => {
-  return {
-    title: '',
-    due: moment(getKST()),
-    status: 'notStarted',
-    category,
-    priority,
-  };
+const todoInitialValue = {
+  title: '',
+  due: moment(getKST()),
+  status: 'notStarted',
+  category: 'work',
+  priority: 'middle',
 };
 
 const TodoForm: React.FC = () => {
@@ -40,7 +38,7 @@ const TodoForm: React.FC = () => {
     handleChangeCategory,
     handleChangePriority,
     initValues,
-  } = useTodoForm(todoInitialValue(t('category.work'), t('priority.middle')));
+  } = useTodoForm(todoInitialValue);
   const user = useSelector(userSelector).uid;
   const dispatch = useDispatch();
 
@@ -90,13 +88,13 @@ const TodoForm: React.FC = () => {
         />
         <StyledDropdown overlay={menu} placement="bottomLeft" arrow>
           <DropdownButton lang={i18n.language}>
-            {values.category}
+            {t(`category.${values.category}`)}
           </DropdownButton>
         </StyledDropdown>
 
         <StyledDropdown overlay={PriorityMenu} placement="bottomLeft" arrow>
           <DropdownButton lang={i18n.language}>
-            {values.priority}
+            {t(`priority.${values.priority}`)}
           </DropdownButton>
         </StyledDropdown>
         {/* TODO: loading 넣기 */}

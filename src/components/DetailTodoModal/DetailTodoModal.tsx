@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
 import { Todo, updateTodoRequest } from 'service/redux/slices/todosSlice';
-import { getDate } from 'utils';
 import CheckList from './CheckList';
 import { useDispatch } from 'react-redux';
 import { StyledTitle, StyledDescription, StyledDate } from './styles';
@@ -56,7 +55,8 @@ const DetailTodoModal: React.FC<DetailTodoModalProps> = ({
         {t('Modal.DetailCreatedAt')}:{' '}
         {todo.createdAt.toLocaleString(i18n.language)}
         <br />
-        {t('Modal.DetailDue')}: {todo.updatedAt.toLocaleString(i18n.language)}
+        {t('Modal.DetailUpdatedAt')}:{' '}
+        {todo.updatedAt.toLocaleString(i18n.language)}
       </StyledDate>
     </Modal>
   );
