@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button } from 'antd';
+import { Button, Select } from 'antd';
 import { userSelector, logoutRequest } from 'service/redux/slices/userSlice';
 import { getKST } from 'utils';
 import { useTranslation } from 'react-i18next';
@@ -9,27 +9,31 @@ import { useTranslation } from 'react-i18next';
 const Header: React.FC = () => {
   const user = useSelector(userSelector).uid;
   const dispatch = useDispatch();
+  const { t, i18n } = useTranslation();
+
   const handleLogout = () => {
     dispatch(logoutRequest());
   };
-  const { t, i18n } = useTranslation();
+
   const today = getKST();
   const dateString = today.toLocaleString(i18n.language, DATE_OPTION);
-
   const todayMessage = t(`header.message_${today.getDay()}`);
-  const toggleLanguage = () => {
-    // console.log(i18n.language);
-    if (i18n.language === 'en') return i18n.changeLanguage('ko-KR');
-    return i18n.changeLanguage('en');
-  };
-  // const toggle
+  const { Option } = Select;
+
   return (
     <StyledHeader>
       <Left>
         <StyledLogo>TodoList</StyledLogo>
         {dateString}
       </Left>
-      <Button onClick={toggleLanguage}> {i18n.language}</Button>
+      <Select
+        defaultValue={i18n.language}
+        style={{ width: 80, textAlign: 'center' }}
+        onChange={(value) => i18n.changeLanguage(value)}
+      >
+        <Option value="ko-KR">한국어</Option>
+        <Option value="en">Eng</Option>
+      </Select>
       <Right>
         <Message>{todayMessage}</Message>
         {!!user && (

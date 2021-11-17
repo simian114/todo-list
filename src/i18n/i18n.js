@@ -24,8 +24,7 @@ i18n
   .use(initReactI18next) // NOTE: passes i18n down to react-i18next
   .init({
     resources,
-    // lng: 'ko-KR',
-    lng: 'en',
+    lng: 'ko-KR',
   });
 
 export default i18n;
